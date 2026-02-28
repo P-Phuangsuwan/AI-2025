@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิเคราะห์ราคาข้าว - Smart Rice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rice_price.css">
+</head>
+
+<body>
+    <!-- สีดำ : Header แบบ index.html -->
+    <header class="top-header">
+        <div class="header-logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
+            </a>
+        </div>
+        <!-- สีเหลือง : Menu Button -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="login.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+        </nav>
+    </aside>
+
+    <!-- สีเขียว : พื้นหลังและกรอบนอกจาก CSS -->
+    <main class="dashboard-container rice-page-container">
+
+        <div class="page-title-area text-white">
+            <h2 class="section-title"><i class="fa-solid fa-sack-dollar"></i> วิเคราะห์ราคาข้าว</h2>
+            <p class="subtitle">ข้อมูลเชิงลึกและแนวโน้มราคาข้าวหอมมะลิประจำปี</p>
+        </div>
+
+        <div class="rice-grid">
+            <!-- กรอบสีแดงอันที่ 1 : กราฟราคาข้าวแต่ละเดือน -->
+            <section class="price-card glass-panel graph-section">
+                <div class="box-header">
+                    <h3><i class="fa-solid fa-chart-area"></i> กราฟราคาข้าวแต่ละเดือน</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ricePriceChart"></canvas>
+                </div>
+            </section>
+
+            <!-- กรอบสีแดงที่ 2 : บอกราคาข้าววันนี้ว่าขึ้นหรือลง -->
+            <section class="price-card glass-panel today-price-section">
+                <div class="box-header">
+                    <h3><i class="fa-solid fa-tags"></i> ราคาข้าววันนี้</h3>
+                </div>
+                <div class="today-price-content">
+                    <div class="price-main-display">
+                        <span class="price-value">12,500</span>
+                        <span class="price-currency">บาท/ตัน</span>
+                    </div>
+                    <div class="price-trend up-trend float-anim">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>+200 บาท (ขึ้นจากเมื่อวาน)</span>
+                    </div>
+                    <div class="moisture-badge">
+                        <i class="fa-solid fa-droplet"></i> ความชื้น 15%
+                    </div>
+                </div>
+            </section>
+
+            <!-- กรอบสีแดงที่ 3 : พยากรณ์แนวโน้มราคาข้าวใน 3 เดือนถัดไป -->
+            <section class="price-card glass-panel forecast-section">
+                <div class="box-header">
+                    <h3><i class="fa-solid fa-crystal-ball"></i> พยากรณ์ 3 เดือนถัดไป</h3>
+                </div>
+                <div class="forecast-content">
+                    <div class="forecast-item">
+                        <span class="month">มี.ค.</span>
+                        <div class="forecast-bar bar-up" style="height: 60%;"></div>
+                        <span class="f-price">12,800</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span class="month">เม.ย.</span>
+                        <div class="forecast-bar bar-up" style="height: 80%;"></div>
+                        <span class="f-price">13,200</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span class="month">พ.ค.</span>
+                        <div class="forecast-bar bar-down" style="height: 50%;"></div>
+                        <span class="f-price">12,600</span>
+                    </div>
+                </div>
+                <p class="forecast-summary text-center mt-3">คาดว่าราคาจะพุ่งสูงสุดในเดือนเมษายน</p>
+            </section>
+
+            <!-- กรอบสีแดงที่ 4 : วิเคราะห์ข้อมูลจากกราฟและแนะนำให้ทำอย่างไร -->
+            <section class="price-card glass-panel analysis-section">
+                <div class="box-header">
+                    <h3><i class="fa-solid fa-microchip"></i> AI วิเคราะห์และคำแนะนำ</h3>
+                </div>
+                <div class="ai-analysis-content">
+                    <div class="insight-status highlight-hold">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <span>กลยุทธ์: <strong>ชะลอการขาย</strong></span>
+                    </div>
+                    <div class="insight-text">
+                        <p><strong>ผลการวิเคราะห์:</strong>
+                            จากกราฟแนวโน้มแสดงให้เห็นว่าตลาดยังมีความต้องการสูงขึ้นต่อเนื่องในช่วงภัยแล้ง</p>
+                        <p><strong>คำแนะนำสำหรับคุณ:</strong> หากคุณมียุ้งฉางที่ได้มาตรฐาน
+                            ควรเก็บข้าวรอจำหน่ายในช่วงเดือนเมษายน ซึ่ง AI คาดการณ์ว่าราคาจะปรับขึ้นไปถึง 13,200 บาท/ตัน
+                            จะทำให้ได้กำไรสูงสุด</p>
+                    </div>
+                    <button class="action-btn mt-3"><i class="fa-solid fa-bell"></i>
+                        แจ้งเตือนเมื่อราคาขึ้นถึงเป้าหมาย</button>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- สีฟ้า : Chatbot แบบ index.html -->
+    <div class="chatbot-fab" id="chatbotBtn">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window glass-card" id="chatbotWindow">
+        <div class="chat-header">
+            <h3><i class="fa-solid fa-robot"></i> ผู้ช่วยฟาร์มอัจฉริยะ (AI)</h3>
+            <button id="closeChat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                สวัสดีครับ! 🌾 หากต้องการสอบถามแนวโน้มราคาข้าว หรือให้ช่วยคำนวณกำไร พิมพ์ถามผมได้เลยครับ
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="พิมพ์คำถามของคุณที่นี่...">
+            <button id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/rice_price.js"></script>
+</body>
+
+</html>

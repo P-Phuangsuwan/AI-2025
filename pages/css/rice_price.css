@@ -1,0 +1,384 @@
+/* d:\AI-2025\pages\css\rice_price.css */
+
+/* Deep Green Dynamic Background - Premium Look */
+body {
+    background: linear-gradient(-45deg, #134e5e, #71b280, #1b5e20, #0f381f);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.text-white {
+    color: white !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Green Wrapper styling */
+.rice-page-container {
+    padding: 20px;
+}
+
+.page-title-area {
+    margin-bottom: 30px;
+    border-left: 4px solid #f4a261;
+    /* Gold accent */
+    padding-left: 15px;
+}
+
+.page-title-area .section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    letter-spacing: 0.5px;
+    color: #ffffff !important;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.page-title-area .subtitle {
+    font-size: 1.15rem;
+    color: #e0f2e5 !important;
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Ruby Red Glassmorphism Cards */
+.rice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+@media (min-width: 992px) {
+    .rice-grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas:
+            "graph current"
+            "forecast analysis";
+    }
+
+    .graph-section {
+        grid-area: graph;
+    }
+
+    .today-price-section {
+        grid-area: current;
+    }
+
+    .forecast-section {
+        grid-area: forecast;
+    }
+
+    .analysis-section {
+        grid-area: analysis;
+    }
+}
+
+.price-card.glass-panel {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.35) 0%, rgba(192, 57, 43, 0.55) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+    color: white;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.price-card.glass-panel:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+}
+
+/* Shine effect inner glow */
+.price-card.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    animation: shineRedGlass 8s infinite ease-in-out;
+}
+
+@keyframes shineRedGlass {
+    0% {
+        left: -150%;
+    }
+
+    15% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+.box-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box-header h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 1. Graph Section */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        height: 250px;
+    }
+}
+
+/* 2. Today Price Section */
+.today-price-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 35px);
+    /* Minus header */
+    gap: 20px;
+}
+
+.price-main-display {
+    text-align: center;
+    position: relative;
+}
+
+.price-value {
+    font-size: 4rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background: -webkit-linear-gradient(#fff, #ffeaa7);
+    /* White to gold gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.price-currency {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.price-trend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.price-trend.up-trend {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.4), rgba(39, 174, 96, 0.6));
+    border: 1px solid rgba(46, 204, 113, 0.5);
+    color: #e8f8f5;
+}
+
+.price-trend.down-trend {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.4), rgba(192, 57, 43, 0.6));
+    border: 1px solid rgba(231, 76, 60, 0.5);
+    color: #fdedec;
+}
+
+.float-anim {
+    animation: floatingPrice 3s ease-in-out infinite;
+}
+
+@keyframes floatingPrice {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.moisture-badge {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3. Forecast Section */
+.forecast-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 150px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 30%;
+}
+
+.forecast-item .month {
+    font-weight: 600;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.forecast-bar {
+    width: 40px;
+    border-radius: 6px 6px 0 0;
+    transition: height 1s ease-out;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.bar-up {
+    background: linear-gradient(to top, rgba(46, 204, 113, 0.6), #2ecc71);
+}
+
+.bar-down {
+    background: linear-gradient(to top, rgba(231, 76, 60, 0.6), #e74c3c);
+}
+
+.forecast-item .f-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffeaa7;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.forecast-summary {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* 4. AI Analysis Section */
+.ai-analysis-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.insight-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.insight-status.highlight-hold {
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.4), rgba(211, 84, 0, 0.6));
+    border: 1px solid rgba(243, 156, 18, 0.5);
+}
+
+.insight-status i {
+    font-size: 1.6rem;
+    color: #ffeaa7;
+}
+
+.insight-text {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-left: 4px solid #f39c12;
+}
+
+.insight-text p {
+    margin-bottom: 10px;
+}
+
+.insight-text p:last-child {
+    margin-bottom: 0;
+}
+
+.insight-text strong {
+    color: #ffeaa7;
+}
+
+.action-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}

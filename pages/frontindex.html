@@ -30,13 +30,7 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าว</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+            <a href="login.html" class="nav-item"><i class="fa-solid fa-user"></i> เข้าสู่ระบบ</a>
         </nav>
     </aside>
 
@@ -46,49 +40,45 @@
             <h2 class="section-title"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ & ราคาข้าว</h2>
             <div class="cards-grid">
                 <!-- Weather Card -->
-                <a href="weather.html" style="text-decoration: none; color: inherit;">
-                    <div class="glass-card weather-card">
-                        <div class="card-header">
-                            <h3>สภาพอากาศวันนี้</h3>
-                            <i class="fa-solid fa-temperature-half icon-accent"></i>
+                <div class="glass-card weather-card">
+                    <div class="card-header">
+                        <h3>สภาพอากาศวันนี้</h3>
+                        <i class="fa-solid fa-temperature-half icon-accent"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="weather-main">
+                            <span class="temp">32°C</span>
+                            <span class="condition">แดดจัด</span>
                         </div>
-                        <div class="card-body">
-                            <div class="weather-main">
-                                <span class="temp">32°C</span>
-                                <span class="condition">แดดจัด</span>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <i class="fa-solid fa-droplet"></i> ปริมาณน้ำ: 60%
                             </div>
-                            <div class="weather-details">
-                                <div class="detail-item">
-                                    <i class="fa-solid fa-droplet"></i> ปริมาณน้ำ: 60%
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fa-solid fa-seedling"></i> ดิน: ชื้นปานกลาง
-                                </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-seedling"></i> ดิน: ชื้นปานกลาง
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Price Card -->
-                <a href="rice_price.html" style="text-decoration: none; color: inherit;">
-                    <div class="glass-card price-card">
-                        <div class="card-header">
-                            <h3>แนวโน้มราคาข้าว (AI พยากรณ์)</h3>
-                            <i class="fa-solid fa-chart-line icon-accent"></i>
-                        </div>
-                        <div class="card-body">
-                            <div class="price-main">
-                                <span class="price">12,500 ฿</span>
-                                <span class="unit">/ ตัน</span>
-                                <span class="trend up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
-                            </div>
-                            <p class="ai-recommendation">
-                                <strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong>
-                                คาดว่าราคาจะปรับขึ้นในอีก 2 สัปดาห์ แนะนำให้ชะลอการขายหากมีสถานที่เก็บรักษาที่เหมาะสม
-                            </p>
-                        </div>
+                <div class="glass-card price-card">
+                    <div class="card-header">
+                        <h3>แนวโน้มราคาข้าว (AI พยากรณ์)</h3>
+                        <i class="fa-solid fa-chart-line icon-accent"></i>
                     </div>
-                </a>
+                    <div class="card-body">
+                        <div class="price-main">
+                            <span class="price">12,500 ฿</span>
+                            <span class="unit">/ ตัน</span>
+                            <span class="trend up"><i class="fa-solid fa-arrow-trend-up"></i> +2%</span>
+                        </div>
+                        <p class="ai-recommendation">
+                            <strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong>
+                            คาดว่าราคาจะปรับขึ้นในอีก 2 สัปดาห์ แนะนำให้ชะลอการขายหากมีสถานที่เก็บรักษาที่เหมาะสม
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
