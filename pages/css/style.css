@@ -456,6 +456,23 @@ body {
     background: var(--chatbot-hover);
 }
 
+/* Back Button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+    color: var(--accent-green);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .chatbot-window {

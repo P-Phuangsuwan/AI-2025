@@ -12,14 +12,12 @@
 </head>
 
 <body>
-    <!-- สีดำ : Header แบบ index.html -->
+    <!-- Top Header (Black in sketch) -->
     <header class="top-header">
         <div class="header-logo">
-            <a href="index.html" style="color: inherit; text-decoration: none;">
-                <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
-            </a>
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
         </div>
-        <!-- สีเหลือง : Menu Button -->
+        <!-- Additional Menu (Yellow in sketch) -->
         <button class="menu-btn" title="เมนูเพิ่มเติม">
             <i class="fa-solid fa-bars"></i>
         </button>
@@ -33,15 +31,20 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
+            <a href="#" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
             <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
-            <a href="login.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+            <a href="news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าว</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
         </nav>
     </aside>
 
     <!-- สีเขียว : พื้นหลังและกรอบนอกจาก CSS -->
     <main class="dashboard-container rice-page-container">
+
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
 
         <div class="page-title-area text-white">
             <h2 class="section-title"><i class="fa-solid fa-sack-dollar"></i> วิเคราะห์ราคาข้าว</h2>

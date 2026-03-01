@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข่าวสารการเกษตร - Smart Rice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Orange/Earthy theme for agricultural news */
+        body {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+            /* Soft orange/earthy gradient */
+        }
+
+        .news-page-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #d35400;
+            /* Dark orange */
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .page-header p {
+            color: #e67e22;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* News List Box */
+        .news-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Horizontal News Card overrides style.css for list view */
+        .news-card-horizontal {
+            display: flex;
+            flex-direction: row;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card-horizontal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(211, 84, 0, 0.15);
+            /* Orange shadow */
+        }
+
+        .news-card-horizontal .news-image {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .news-card-horizontal .news-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .news-card-horizontal h4 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: #d35400;
+            /* Theme matching */
+        }
+
+        .news-card-horizontal p {
+            font-size: 0.95rem;
+            color: #5C7262;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-horizontal .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .news-card-horizontal .news-date {
+            font-size: 0.85rem;
+            color: #e67e22;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .read-more-badge {
+            background: #e67e22;
+            /* Orange action button */
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .news-card-horizontal:hover .read-more-badge {
+            background: #d35400;
+            /* Darker orange on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .news-card-horizontal {
+                flex-direction: column;
+            }
+
+            .news-card-horizontal .news-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Header (Black in sketch) -->
+    <header class="top-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
+        </div>
+        <!-- Additional Menu (Yellow in sketch) -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu (Yellow in sketch) -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <!-- same sidebar content as index.html -->
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="../index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="../weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าว</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-container">
+        <div class="news-page-wrapper">
+            <div class="page-header">
+                <h1><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตรทั้งหมด</h1>
+                <p>อัปเดตความเคลื่อนไหว เทคโนโลยี และแนวโน้มเกี่ยวกับข้าวและเกษตรกรรม</p>
+            </div>
+
+            <div class="news-list-container" id="newsListContainer">
+                <!-- Data will be injected via JS -->
+                <div style="padding: 40px; text-align: center;">
+                    <i class="fa-solid fa-spinner fa-spin fa-3x" style="color: #e67e22; margin-bottom: 20px;"></i>
+                    <p style="color: #d35400;">กำลังโหลดข้อมูลข่าวทั้งหมด...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot FAB (Blue in sketch) -->
+    <div class="chatbot-fab" id="chatbotBtn">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window glass-card" id="chatbotWindow">
+        <div class="chat-header">
+            <h3><i class="fa-solid fa-robot"></i> ผู้ช่วยฟาร์มอัจฉริยะ (AI)</h3>
+            <button id="closeChat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                สวัสดีครับ! 🌾 หากคุณสนใจข่าวสารด้านไหนเป็นพิเศษ (เช่น ราคากลาง, เทคโนโลยีใหม่) บอกผมได้เลยนะครับ!
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="พิมพ์คำถามของคุณที่นี่...">
+            <button id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Database expansion to 10 items
+        const newsDatabaseExpanded = [
+            {
+                id: 1,
+                title: "ประกาศเตือนภัยแล้งในภาคตะวันออกเฉียงเหนือ",
+                date: "25 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1590682680695-43b964a3ae17?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "กรมอุตุนิยมวิทยาออกประกาศเตือนเกษตรกรในพื้นที่ภาคตะวันออกเฉียงเหนือให้เตรียมรับมือกับภาวะฝนทิ้งช่วงที่จะเกิดขึ้น..."
+            },
+            {
+                id: 2,
+                title: "รัฐบาลเร่งผลักดันนโยบาย 'เกษตรแม่นยำ' ดัน AI ช่วยเพิ่มผลผลิตข้าว",
+                date: "24 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "กระทรวงเกษตรและสหกรณ์จับมือกับกลุ่มบริษัทเอกชนด้านเทคโนโลยี เปิดตัวโครงการใหญ่มุ่งสนับสนุนการใช้เซนเซอร์..."
+            },
+            {
+                id: 3,
+                title: "สรุปภาพรวมตลาดข้าวโลก: ราคาพุ่งสูงอานิสงส์ความต้องการส่งออกเพิ่ม",
+                date: "22 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1595822556555-d3c528f804fc?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "ภาพรวมตลาดข้าวโลกในไตรมาสแรกของปี 2026 มีทิศทางที่สดใสมากสำหรับประเทศผู้ส่งออก โดยเฉพาะข้าวไทย..."
+            },
+            {
+                id: 4,
+                title: "แชร์เทคนิค: เปิดสูตรปุ๋ยอินทรีย์ทำเองจากวัสดุเหลือใช้ในท้องถิ่น",
+                date: "20 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1592982537447-6f2aa3c1b827?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "กลุ่มเกษตรกรต้นแบบตำบลบางระกำ ได้ออกมาเปิดเผยเคล็ดลับที่สืบทอดและพัฒนาจนประสิทธิผลดีเยี่ยม นั่นคือการหมักปุ๋ย..."
+            },
+            {
+                id: 5,
+                title: "วิจัยพบพันธุ์ข้าวต้านทานน้ำเค็มสายพันธุ์ใหม่ คาดช่วยเหลือพื้นที่ชายฝั่ง",
+                date: "18 ก.พ. 2026",
+                image: "https://plus.unsplash.com/premium_photo-1661962363191-450f38bf3be7?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "กรมการข้าวจับมือมหาวิทยาลัยเกษตรศาสตร์ ประสบความสำเร็จในการพัฒนาสายพันธุ์ข้าวที่สามารถทนต่อความเค็มในดินระดับสูงได้..."
+            },
+            {
+                id: 6,
+                title: "เกษตรกรเฮ ลานรับซื้อข้าวเปลือกเปิดรับไม่อั้นรับฤดูกาลหน้า",
+                date: "15 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1628189658514-49c5e31db48c?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "ผู้ประกอบการโรงสีส่วนใหญ่ประกาศพร้อมรับซื้อข้าวเปลือกปีนี้อย่างเต็มที่ หลังตลาดส่งออกมีความตื่นตัวและเศรษฐกิจฟื้นตัว..."
+            },
+            {
+                id: 7,
+                title: "ระวังภัยเพลี้ยกระโดดสีน้ำตาล ระบาดหนักในหลายพื้นที่ภาคกลาง",
+                date: "12 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "เกษตรกรพื้นที่ภาคกลางได้รับคำเตือนให้เฝ้าระวังการระบาดของเพลี้ยกระโดดสีน้ำตาล หลังสำรวจพบความหนาแน่นสูงเกินเกณฑ์มาตรฐาน..."
+            },
+            {
+                id: 8,
+                title: "โครงการรถไถไฟฟ้าเริ่มทดลองใช้แล้ว เล็งเป้าลดการปล่อยคาร์บอน",
+                date: "10 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1589578160356-fc4af7368565?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "นวัตกรรมล่าสุดจากการพัฒนาร่วมกับบริษัทรถยนต์ชั้นนำ รถไถนาขับเคลื่อนด้วยพลังงานไฟฟ้าโมเดลแรกของไทยเริ่มให้บริการแก่ชาวนาต้นแบบ..."
+            },
+            {
+                id: 9,
+                title: "เจาะลึก: ทำไม 'ข้าวหอมมะลิไทย' ยังครองแชมป์ข้าวอร่อยที่สุด",
+                date: "05 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1613915000527-38d7260f898a?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "บทวิเคราะห์จากนิตยสารอาหารชื่อดังเผยให้เห็นว่า ความเป็นเอกลักษณ์และคุณภาพสม่ำเสมอของข้าวหอมมะลิไทยยังคงมัดใจเชฟระดับโลก..."
+            },
+            {
+                id: 10,
+                title: "เปิดรับสมัครเข้าร่วมโครงการ 'Smart Farmer 2026' เพื่อชาวนาไทย",
+                date: "01 ก.พ. 2026",
+                image: "https://images.unsplash.com/photo-1533602871787-84bd7708518e?auto=format&fit=crop&q=80&w=600&h=400",
+                description: "รัฐบาลเปิดให้เกษตรกรยุคใหม่ที่ต้องการต่อยอดธุรกิจส่วนตัวมาพัฒนาสู่โครงการระดับอุตสาหกรรมด้วยการใช้นวัตกรรมดิจิทัล ลงทะเบียนได้ถึงสิ้นเดือนนี้..."
+            },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('newsListContainer');
+            container.innerHTML = ''; // clear loading state
+
+            newsDatabaseExpanded.forEach(news => {
+                container.innerHTML += `
+                    <a href="newspart.html?id=${news.id}" class="news-card-horizontal">
+                        <img src="${news.image}" alt="${news.title}" class="news-image">
+                        <div class="news-content">
+                            <h4>${news.title}</h4>
+                            <p>${news.description}</p>
+                            <div class="news-meta">
+                                <span class="news-date"><i class="fa-regular fa-calendar-days"></i> ${news.date}</span>
+                                <span class="read-more-badge">อ่านเพิ่มเติม <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                 `;
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -43,16 +43,36 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage(text, 'user-message');
         chatInput.value = '';
 
-        // Simulate AI thinking and responding
-        setTimeout(() => {
-            const responses = [
-                "รับทราบครับ ขอวิเคราะห์ข้อมูลสักครู่นะครับ...",
-                "จากข้อมูลล่าสุด ปริมาณน้ำในดินเพียงพอในช่วง 3 วันนี้ครับ",
-                "แนวโน้มราคาข้าวเปลือกเจ้าสัปดาห์หน้าอาจจะทรงตัว แนะนำให้ติดตามประกาศอีกครั้งครับ"
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            appendMessage(randomResponse, 'ai-message');
-        }, 1000);
+        // Show loading indicator
+        const loadingId = 'loading-' + Date.now();
+        appendMessage("กำลังคิด...", 'ai-message', loadingId);
+
+        // Call Backend API
+        fetch('http://localhost:3000/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: text })
+        })
+            .then(response => response.json())
+            .then(data => {
+                removeMessage(loadingId);
+                if (data.reply) {
+                    appendMessage(data.reply, 'ai-message');
+                } else if (data.error) {
+                    console.error('API Error details:', data.error);
+                    appendMessage(`❌ ข้อผิดพลาดจาก API: ${data.error}`, 'ai-message');
+                } else {
+                    console.error('Unexpected API response:', data);
+                    appendMessage("❌ ขัดข้อง: รูปแบบข้อมูลที่ได้รับไม่ถูกต้อง", 'ai-message');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching from API:', error);
+                removeMessage(loadingId);
+                appendMessage("🔌 ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ Backend ได้ กรุณาตรวจสอบว่าเปิด Backend แล้ว", 'ai-message');
+            });
     };
 
     sendMessageBtn.addEventListener('click', handleSendMessage);
@@ -62,13 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function appendMessage(text, className) {
+    function appendMessage(text, className, id = null) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${className}`;
+        if (id) msgDiv.id = id;
+
+        // Use plain text to safely render response
         msgDiv.textContent = text;
         chatMessages.appendChild(msgDiv);
 
         // Auto scroll to bottom
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeMessage(id) {
+        const msgDiv = document.getElementById(id);
+        if (msgDiv) {
+            msgDiv.remove();
+        }
     }
 });

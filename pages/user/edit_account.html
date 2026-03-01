@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขบัญชี - Smart Rice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user_account.css">
+</head>
+
+<body class="account-page">
+    <!-- Top Header (Black in sketch) -->
+    <header class="top-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
+        </div>
+        <!-- Menu Button (Yellow in sketch) -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="../index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="../weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าว</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+        </nav>
+    </aside>
+
+    <main class="account-container">
+
+        <a href="user_account.html" class="back-btn" style="color: #1A3626;">
+            <i class="fa-solid fa-arrow-left"></i> ยกเลิกการแก้ไข
+        </a>
+
+        <h2 class="section-title"><i class="fa-solid fa-pen-to-square"></i> แก้ไขข้อมูลบัญชี</h2>
+
+        <!-- Gray Box Area -->
+        <form action="user_account.html" method="GET" class="account-gray-box">
+
+            <!-- Left Panel -->
+            <div class="account-left-panel">
+                <!-- Green Box: Image Upload Area (from sketch) -->
+                <label for="profile-upload" class="image-upload-box">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>เปลี่ยนรูปโปรไฟล์</span>
+                </label>
+                <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+
+                <!-- Pink Box: Submit Button (from sketch) -->
+                <button type="submit" class="btn-pink-submit">
+                    <i class="fa-solid fa-check"></i> ตกลง
+                </button>
+            </div>
+
+            <!-- Right Panel (User Details Form) -->
+            <div class="account-right-panel">
+                <h3>รายละเอียดบัญชี</h3>
+
+                <div class="account-edit-form">
+                    <div style="display: flex; gap: 15px;">
+                        <div class="edit-input-group" style="flex: 1;">
+                            <label>ชื่อ</label>
+                            <input type="text" class="edit-input" value="สมหมาย" required>
+                        </div>
+                        <div class="edit-input-group" style="flex: 1;">
+                            <label>นามสกุล</label>
+                            <input type="text" class="edit-input" value="เกษตรก้าวหน้า" required>
+                        </div>
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>ที่อยู่</label>
+                        <textarea class="edit-input" required>99/9 หมู่ 4 ต.หนองนาคำ อ.เมือง จ.อุดรธานี 41000</textarea>
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>หมายเลขโทรศัพท์</label>
+                        <input type="tel" class="edit-input" value="089-987-6543" required>
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>อีเมล</label>
+                        <input type="email" class="edit-input" value="sommai.farm@example.com" required>
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>ชื่อบัญชี (Username)</label>
+                        <input type="text" class="edit-input" value="Sommai_SmartRice" required>
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>เปลี่ยนรหัสผ่าน (เว้นว่างไว้หากไม่ต้องการเปลี่ยน)</label>
+                        <input type="password" class="edit-input" placeholder="รหัสผ่านใหม่">
+                    </div>
+
+                    <div class="edit-input-group">
+                        <label>ยืนยันรหัสผ่านใหม่</label>
+                        <input type="password" class="edit-input" placeholder="ยืนยันรหัสผ่านใหม่">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+</body>
+
+</html>
