@@ -1,15 +1,16 @@
-/* d:\AI-2025\pages\css\rice_price.css */
+/* d:\AI-2025\frontend\css\rice_price.css - Premium Modern Dashboard Layout (Soft Light Theme) */
 
-/* Deep Green Dynamic Background - Premium Look */
+/* Ultra-Premium Animated Light Background */
 body {
-    background: linear-gradient(-45deg, #134e5e, #71b280, #1b5e20, #0f381f);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #ffffff;
+    background: radial-gradient(circle at 10% 20%, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+    background-size: 200% 200%;
+    animation: premiumGradientBG 20s ease infinite;
+    color: #334155;
     min-height: 100vh;
+    font-family: 'Prompt', sans-serif;
 }
 
-@keyframes gradientBG {
+@keyframes premiumGradientBG {
     0% {
         background-position: 0% 50%;
     }
@@ -24,46 +25,48 @@ body {
 }
 
 .text-white {
-    color: white !important;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    color: #0f172a !important;
+    text-shadow: none;
 }
 
-/* Green Wrapper styling */
+/* Base Wrapper styling */
 .rice-page-container {
-    padding: 20px;
+    padding: 30px 20px;
 }
 
 .page-title-area {
-    margin-bottom: 30px;
-    border-left: 4px solid #f4a261;
-    /* Gold accent */
-    padding-left: 15px;
+    margin-bottom: 40px;
+    border-left: 4px solid #0ea5e9;
+    padding-left: 20px;
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.1) 0%, transparent 100%);
+    border-radius: 0 10px 10px 0;
+    padding-block: 10px;
 }
 
 .page-title-area .section-title {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
     gap: 15px;
     letter-spacing: 0.5px;
-    color: #ffffff !important;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    color: #0f172a !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .page-title-area .subtitle {
     font-size: 1.15rem;
-    color: #e0f2e5 !important;
+    color: #64748b !important;
     font-weight: 400;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
 }
 
-/* Ruby Red Glassmorphism Cards */
+/* Sleek Light Glassmorphism Cards */
 .rice-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
+    gap: 30px;
 }
 
 @media (min-width: 992px) {
@@ -71,7 +74,7 @@ body {
         grid-template-columns: 2fr 1fr;
         grid-template-areas:
             "graph current"
-            "forecast analysis";
+            "analysis forecast";
     }
 
     .graph-section {
@@ -92,76 +95,73 @@ body {
 }
 
 .price-card.glass-panel {
-    background: linear-gradient(135deg, rgba(231, 76, 60, 0.35) 0%, rgba(192, 57, 43, 0.55) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 107, 107, 0.3);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     position: relative;
     overflow: hidden;
-    color: white;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    color: #475569;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
 }
 
 .price-card.glass-panel:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 107, 107, 0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
-/* Shine effect inner glow */
+/* Subtle accent glow top border */
 .price-card.glass-panel::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -150%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
-    transform: skewX(-20deg);
-    animation: shineRedGlass 8s infinite ease-in-out;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
+    opacity: 0.6;
+    transition: opacity 0.3s;
 }
 
-@keyframes shineRedGlass {
-    0% {
-        left: -150%;
-    }
-
-    15% {
-        left: 200%;
-    }
-
-    100% {
-        left: 200%;
-    }
+.price-card.glass-panel:hover::before {
+    opacity: 1;
 }
 
 .box-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     padding-bottom: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .box-header h3 {
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 12px;
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #1e293b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.box-header h3 i {
+    color: #0ea5e9;
 }
 
 /* 1. Graph Section */
 .chart-container {
     position: relative;
-    height: 300px;
+    height: 320px;
     width: 100%;
+    margin-top: 10px;
 }
 
 @media (max-width: 768px) {
@@ -176,9 +176,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 35px);
-    /* Minus header */
-    gap: 20px;
+    height: calc(100% - 40px);
+    gap: 25px;
 }
 
 .price-main-display {
@@ -187,49 +186,52 @@ body {
 }
 
 .price-value {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 700;
     display: block;
     line-height: 1;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background: -webkit-linear-gradient(#fff, #ffeaa7);
-    /* White to gold gradient */
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 6px rgba(14, 165, 233, 0.2));
 }
 
 .price-currency {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 400;
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 5px;
+    display: block;
 }
 
 .price-trend {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1.2rem;
+    gap: 12px;
+    font-size: 1.1rem;
     font-weight: 600;
-    padding: 8px 18px;
+    padding: 10px 22px;
     border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .price-trend.up-trend {
-    background: linear-gradient(135deg, rgba(46, 204, 113, 0.4), rgba(39, 174, 96, 0.6));
-    border: 1px solid rgba(46, 204, 113, 0.5);
-    color: #e8f8f5;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #059669;
 }
 
 .price-trend.down-trend {
-    background: linear-gradient(135deg, rgba(231, 76, 60, 0.4), rgba(192, 57, 43, 0.6));
-    border: 1px solid rgba(231, 76, 60, 0.5);
-    color: #fdedec;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #dc2626;
 }
 
 .float-anim {
-    animation: floatingPrice 3s ease-in-out infinite;
+    animation: floatingPrice 4s ease-in-out infinite;
 }
 
 @keyframes floatingPrice {
@@ -238,7 +240,7 @@ body {
     }
 
     50% {
-        transform: translateY(-6px);
+        transform: translateY(-8px);
     }
 
     100% {
@@ -247,14 +249,19 @@ body {
 }
 
 .moisture-badge {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 6px 15px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 8px 18px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    color: #475569;
     display: flex;
     align-items: center;
-    gap: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    gap: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.moisture-badge i {
+    color: #0ea5e9;
 }
 
 /* 3. Forecast Section */
@@ -262,123 +269,124 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 150px;
-    padding-bottom: 10px;
-    margin-top: 10px;
+    height: 160px;
+    padding-bottom: 5px;
+    margin-top: 15px;
 }
 
 .forecast-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     width: 30%;
 }
 
 .forecast-item .month {
     font-weight: 600;
     font-size: 1rem;
-    opacity: 0.9;
+    color: #64748b;
 }
 
 .forecast-bar {
-    width: 40px;
-    border-radius: 6px 6px 0 0;
-    transition: height 1s ease-out;
+    width: 35px;
+    border-radius: 8px 8px 0 0;
+    transition: height 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .bar-up {
-    background: linear-gradient(to top, rgba(46, 204, 113, 0.6), #2ecc71);
+    background: linear-gradient(to top, rgba(16, 185, 129, 0.6), #10b981);
 }
 
 .bar-down {
-    background: linear-gradient(to top, rgba(231, 76, 60, 0.6), #e74c3c);
+    background: linear-gradient(to top, rgba(245, 158, 11, 0.6), #f59e0b);
 }
 
 .forecast-item .f-price {
     font-weight: 700;
-    font-size: 1.1rem;
-    color: #ffeaa7;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    font-size: 1.15rem;
+    color: #1e293b;
 }
 
 .forecast-summary {
     font-size: 0.95rem;
-    opacity: 0.85;
-    background: rgba(0, 0, 0, 0.15);
-    padding: 10px;
-    border-radius: 8px;
+    color: #475569;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* 4. AI Analysis Section */
 .ai-analysis-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .insight-status {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+    padding: 18px 25px;
+    border-radius: 16px;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
 
 .insight-status.highlight-hold {
-    background: linear-gradient(135deg, rgba(243, 156, 18, 0.4), rgba(211, 84, 0, 0.6));
-    border: 1px solid rgba(243, 156, 18, 0.5);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.15));
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .insight-status i {
-    font-size: 1.6rem;
-    color: #ffeaa7;
+    font-size: 1.8rem;
+    color: #d97706;
 }
 
 .insight-text {
-    background: rgba(0, 0, 0, 0.15);
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    border-left: 4px solid #f39c12;
-}
-
-.insight-text p {
-    margin-bottom: 10px;
-}
-
-.insight-text p:last-child {
-    margin-bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px 25px;
+    border-radius: 16px;
+    font-size: 1rem;
+    line-height: 1.8;
+    border-left: 4px solid #d97706;
+    color: #334155;
 }
 
 .insight-text strong {
-    color: #ffeaa7;
+    color: #b45309;
 }
 
 .action-btn {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    border: none;
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 12px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.action-btn i {
+    font-size: 1.2rem;
 }
 
 .action-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
 }

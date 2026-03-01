@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตั้งค่า - Smart Rice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/setting.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
+        </div>
+        <!-- Additional Menu (Yellow in sketch) -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
+            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าว</a>
+            <a href="user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
+        </nav>
+    </aside>
+
+    <div class="main-layout">
+        <!-- Settings Sidebar (Categories - replaced pink color with green) -->
+        <aside class="settings-sidebar">
+            <div class="settings-sidebar-header">
+                <i class="fa-solid fa-gear"></i> การตั้งค่า
+            </div>
+            <ul class="settings-menu">
+                <li><a class="active" onclick="switchTab('profile')"><i class="fa-regular fa-user"></i> บัญชีผู้ใช้</a>
+                </li>
+                <li><a onclick="switchTab('farm')"><i class="fa-solid fa-tractor"></i> ข้อมูลฟาร์ม</a></li>
+                <li><a onclick="switchTab('notifications')"><i class="fa-regular fa-bell"></i> การแจ้งเตือน</a></li>
+                <li><a onclick="switchTab('appearance')"><i class="fa-solid fa-palette"></i> การแสดงผล</a></li>
+                <li><a onclick="switchTab('security')"><i class="fa-solid fa-shield-halved"></i> ความปลอดภัย</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area (Settings Details - replaced blue color with light theme) -->
+        <main class="settings-content">
+            <!-- Profile Settings -->
+            <section id="profile" class="setting-panel active">
+                <div class="panel-header">
+                    <h2>บัญชีผู้ใช้</h2>
+                    <p>จัดการข้อมูลส่วนตัวและโปรไฟล์ของคุณ</p>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-regular fa-id-card"></i> ข้อมูลทั่วไป</h3>
+                    <div class="form-row">
+                        <label for="fullName">ชือ-นามสกุล</label>
+                        <input type="text" id="fullName" class="form-control" value="สมชาย ใจดี">
+                    </div>
+                    <div class="form-row">
+                        <label for="email">อีเมล</label>
+                        <input type="email" id="email" class="form-control" value="somchai@example.com">
+                    </div>
+                    <div class="form-row">
+                        <label for="phone">เบอร์โทรศัพท์</label>
+                        <input type="text" id="phone" class="form-control" value="081-234-5678">
+                    </div>
+                    <button class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูล</button>
+                </div>
+            </section>
+
+            <!-- Farm Settings -->
+            <section id="farm" class="setting-panel">
+                <div class="panel-header">
+                    <h2>ข้อมูลฟาร์ม</h2>
+                    <p>ตั้งค่ารายละเอียดเกี่ยวกับพื้นที่เพาะปลูกของคุณเพื่อความแม่นยำของ AI</p>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> ตำแหน่งและขนาด</h3>
+                    <div class="form-row">
+                        <label for="farmSize">ขนาดพื้นที่ (ไร่)</label>
+                        <input type="number" id="farmSize" class="form-control" value="15">
+                    </div>
+                    <div class="form-row">
+                        <label for="riceType">สายพันธุ์ข้าวที่ปลูกประจำ</label>
+                        <select id="riceType" class="form-control">
+                            <option value="jasmine">ข้าวหอมมะลิ 105</option>
+                            <option value="pathum">ข้าวหอมปทุมธานี</option>
+                            <option value="sticky">ข้าวเหนียว กข6</option>
+                            <option value="berry">ข้าวไรซ์เบอร์รี่</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="soilType">สภาพดิน</label>
+                        <select id="soilType" class="form-control">
+                            <option value="clay">ดินเหนียว</option>
+                            <option value="loam">ดินร่วน</option>
+                            <option value="sand">ดินทราย</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary"><i class="fa-solid fa-floppy-disk"></i> อัปเดตข้อมูลไร่</button>
+                </div>
+            </section>
+
+            <!-- Notification Settings -->
+            <section id="notifications" class="setting-panel">
+                <div class="panel-header">
+                    <h2>การแจ้งเตือน</h2>
+                    <p>จัดการรับข่าวสารและการเตือนภัยต่างๆ จากระบบ</p>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-solid fa-mobile-screen"></i> ผ่านแอปพลิเคชัน</h3>
+
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <h4>เตือนภัยสภาพอากาศ</h4>
+                            <p>รับการแจ้งเตือนเมื่อมีพายุ ฝนตกหนัก หรือภัยแล้ง</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <h4>อัปเดตราคาข้าว</h4>
+                            <p>แจ้งเตือนเมื่อราคาข้าวในตลาดมีการเปลี่ยนแปลงสำคัญ</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <h4>คำแนะนำจาก AI</h4>
+                            <p>รับข้อเสนอแนะเกี่ยวกับการใส่ปุ๋ย การเก็บเกี่ยว ในเวลาที่เหมาะสม</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appearance Settings -->
+            <section id="appearance" class="setting-panel">
+                <div class="panel-header">
+                    <h2>การแสดงผล</h2>
+                    <p>ปรับแต่งหน้าตาของแอปพลิเคชันตามที่คุณต้องการ</p>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-solid fa-circle-half-stroke"></i> ธีมแอปพลิเคชัน</h3>
+                    <div class="form-row">
+                        <label for="themeMode">โหมดสี</label>
+                        <select id="themeMode" class="form-control">
+                            <option value="light">สว่าง (Light Mode)</option>
+                            <option value="dark">มืด (Dark Mode)</option>
+                            <option value="auto">ตามระบบ (System)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="fontSize">ขนาดตัวอักษร</label>
+                        <select id="fontSize" class="form-control">
+                            <option value="small">เล็ก</option>
+                            <option value="medium" selected>ปานกลาง</option>
+                            <option value="large">ใหญ่</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary"><i class="fa-solid fa-check"></i> นำไปใช้</button>
+                </div>
+            </section>
+
+            <!-- Security Settings -->
+            <section id="security" class="setting-panel">
+                <div class="panel-header">
+                    <h2>ความปลอดภัย</h2>
+                    <p>จัดการรหัสผ่านและรักษาความปลอดภัยของบัญชี</p>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-solid fa-key"></i> เปลี่ยนรหัสผ่าน</h3>
+                    <div class="form-row">
+                        <label for="oldPassword">รหัสผ่านเดิม</label>
+                        <input type="password" id="oldPassword" class="form-control" placeholder="••••••••">
+                    </div>
+                    <div class="form-row">
+                        <label for="newPassword">รหัสผ่านใหม่</label>
+                        <input type="password" id="newPassword" class="form-control" placeholder="••••••••">
+                    </div>
+                    <div class="form-row">
+                        <label for="confirmPassword">ยืนยันรหัสผ่านใหม่</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••">
+                    </div>
+                    <button class="btn-primary"><i class="fa-solid fa-lock"></i> เปลี่ยนรหัสผ่าน</button>
+                </div>
+
+                <div class="setting-group">
+                    <h3><i class="fa-solid fa-shield-cat"></i> การยืนยันตัวตนแบบสองชั้น (2FA)</h3>
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <h4>เปิดใช้งาน 2FA</h4>
+                            <p>เพิ่มความปลอดภัยให้บัญชีของคุณด้วยการยืนยันรหัสผ่านผ่าน SMS
+                                หรืออีเมลเมื่อเข้าสู่ระบบจากอุปกรณ์ใหม่</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group" style="border-color: #ffebee; background-color: #fffafb;">
+                    <h3 style="color: #d32f2f;"><i class="fa-solid fa-triangle-exclamation"></i> เขตอันตราย</h3>
+                    <p style="color: #666; margin-bottom: 15px;">
+                        การลบบัญชีจะเป็นการลบข้อมูลทั้งหมดของคุณออกจากระบบและไม่สามารถกู้คืนได้</p>
+                    <button class="btn-danger"><i class="fa-solid fa-trash-can"></i> ลบบัญชีผู้ใช้</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script for Tab Switching -->
+    <script>
+        function switchTab(tabId) {
+            // Remove active class from all links
+            const links = document.querySelectorAll('.settings-menu a');
+            links.forEach(link => link.classList.remove('active'));
+
+            // Add active class to clicked link
+            event.currentTarget.classList.add('active');
+
+            // Hide all panels
+            const panels = document.querySelectorAll('.setting-panel');
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Show selected panel
+            const selectedPanel = document.getElementById(tabId);
+            if (selectedPanel) {
+                selectedPanel.classList.add('active');
+            }
+        }
+    </script>
+    <script src="../js/app.js"></script>
+</body>
+
+</html>
