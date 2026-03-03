@@ -55,8 +55,15 @@
         <div class="rice-grid">
             <!-- กรอบสีแดงอันที่ 1 : กราฟราคาข้าวแต่ละเดือน -->
             <section class="price-card glass-panel graph-section">
-                <div class="box-header">
-                    <h3><i class="fa-solid fa-chart-area"></i> กราฟราคาข้าวหอมมะลิแต่ละเดือน</h3>
+                <div class="box-header"
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="margin-bottom: 0;"><i class="fa-solid fa-chart-area"></i> กราฟราคาข้าวแต่ละเดือน</h3>
+                    <select id="riceVarietySelect"
+                        style="padding: 5px 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; cursor: pointer; outline: none;">
+                        <option value="white_jasmine105">ข้าวขาวดอกมะลิ 105</option>
+                        <option value="khorgor15">ข้าว กข15</option>
+                        <option value="thungkula_jasmine">ข้าวหอมมะลิทุ่งกุลาร้องไห้</option>
+                    </select>
                 </div>
                 <div class="chart-container">
                     <canvas id="ricePriceChart"></canvas>

@@ -36,9 +36,9 @@
             <!-- <a href="../news/newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a> -->
             <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
             <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
-            <!-- <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
-            <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
-                ออกจากระบบ</a>
+            <!-- <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a> -->
+            <!-- <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i>
+                ออกจากระบบ</a> -->
         </nav>
     </aside>
 
@@ -95,6 +95,18 @@
                         <span class="label">โอกาสเกิดฝน (วันนี้)</span>
                         <span class="value" id="currentRainProb">--%</span>
                         <span class="status" id="rainStatus">--</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fa-solid fa-water"></i>
+                        <span class="label">ระดับน้ำในนา</span>
+                        <span class="value" id="currentWaterLevel">-- ซม.</span>
+                        <span class="status" id="waterStatus">--</span>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fa-solid fa-flask"></i>
+                        <span class="label">ค่า pH ของดิน</span>
+                        <span class="value" id="currentSoilPH">--</span>
+                        <span class="status" id="phStatus">--</span>
                     </div>
                 </div>
 
@@ -251,6 +263,33 @@
                 } else {
                     rainStatusObj.textContent = 'ต่ำ';
                     rainStatusObj.className = 'status good';
+                }
+
+                // Simulate Water Level
+                const simWaterLevel = Math.floor(Math.random() * 5) + 8; // 8-12 cm
+                document.getElementById('currentWaterLevel').textContent = simWaterLevel + ' ซม.';
+                const waterStatusObj = document.getElementById('waterStatus');
+                if (simWaterLevel > 15) {
+                    waterStatusObj.textContent = 'สูงเกินไป';
+                    waterStatusObj.className = 'status warning';
+                } else if (simWaterLevel < 5) {
+                    waterStatusObj.textContent = 'ต่ำเกินไป';
+                    waterStatusObj.className = 'status warning';
+                } else {
+                    waterStatusObj.textContent = 'เหมาะสม';
+                    waterStatusObj.className = 'status good';
+                }
+
+                // Simulate Soil pH
+                const simSoilPH = (Math.random() * 1.0 + 5.5).toFixed(1); // 5.5-6.5
+                document.getElementById('currentSoilPH').textContent = simSoilPH;
+                const phStatusObj = document.getElementById('phStatus');
+                if (simSoilPH < 5.0 || simSoilPH > 7.0) {
+                    phStatusObj.textContent = 'ต้องปรับปรุง';
+                    phStatusObj.className = 'status warning';
+                } else {
+                    phStatusObj.textContent = 'เหมาะสม';
+                    phStatusObj.className = 'status good';
                 }
 
                 // AI Insight Rules

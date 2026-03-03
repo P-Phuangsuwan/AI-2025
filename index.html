@@ -67,7 +67,19 @@
                                 <div class="detail-item">
                                     <i class="fa-solid fa-wind"></i> ลม: <span id="dashWind">-- กม./ชม.</span>
                                 </div>
+                                <div class="detail-item">
+                                    <i class="fa-solid fa-water" style="color: #4facfe;"></i> ระดับน้ำ: <span
+                                        id="dashWater">-- ซม.</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fa-solid fa-flask" style="color: #ab8ce4;"></i> pH ดิน: <span
+                                        id="dashPH">--</span>
+                                </div>
                             </div>
+                            <!-- <p class="ai-recommendation" id="dashWeatherAI" style="margin-top: 15px;">
+                                <strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong>
+                                กำลังวิเคราะห์สภาพอากาศ...
+                            </p> -->
                         </div>
                     </div>
                 </a>
@@ -87,10 +99,14 @@
                                         class="fa-solid fa-spinner fa-spin"></i> <span
                                         id="dashRiceDiff">คำนวณ...</span></span>
                             </div>
-                            <p class="ai-recommendation" id="dashRiceAI">
+                            <!-- Small Chart Container -->
+                            <div style="margin-top: 15px; height: 120px; width: 100%;">
+                                <canvas id="dashRiceChart"></canvas>
+                            </div>
+                            <!-- <p class="ai-recommendation" id="dashRiceAI">
                                 <strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong>
                                 กำลังวิเคราะห์แนวโน้มตลาด...
-                            </p>
+                            </p> -->
                         </div>
                     </div>
                 </a>
@@ -126,22 +142,32 @@
                         <option value="sand">ดินทราย</option>
                     </select>
                 </div>
+                <div class="form-row">
+                    <label for="expectedYield">เป้าหมายผลผลิต (กิโลกรัม/ไร่)</label>
+                    <input type="number" id="expectedYield" class="form-control" value="500" placeholder="เช่น 500">
+                </div>
                 <button class="btn-primary" onclick="updateFarmData()"><i class="fa-solid fa-floppy-disk"></i>
-                อัปเดตข้อมูลไร่</button>
-
-                <!-- AI Recommendation Box -->
-                <div id="aiRecommendationBox"
-                    style="display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border: 1px solid #80cbc4;">
-                    <h4 style="color: #00796b; margin-bottom: 10px;"><i class="fa-solid fa-robot"></i>
-                        คำแนะนำใหม่จาก AI</h4>
-                    <div id="aiRecommendationContent" style="color: #004d40; font-size: 0.95em; line-height: 1.5;">
-                    </div>
+                    อัปเดตข้อมูลไร่</button>
+            </div>
+        </section>
+        <!-- Unified AI Report Section -->
+        <section class="top-section" style="margin-top: 30px;">
+            <div class="glass-card"
+                style="background: linear-gradient(135deg, rgba(230, 247, 255, 0.8) 0%, rgba(204, 235, 255, 0.9) 100%); border-left: 6px solid #1890ff; padding: 25px;">
+                <div class="card-header"
+                    style="border-bottom: 2px solid rgba(24, 144, 255, 0.2); padding-bottom: 15px; margin-bottom: 20px;">
+                    <h3 style="color: #0050b3; font-size: 1.4rem;"><i class="fa-solid fa-robot"></i> Smart Rice AI:
+                        วิเคราะห์ภาพรวมฟาร์มของคุณ</h3>
+                </div>
+                <div id="unifiedAiReportContent" style="color: #003a8c; font-size: 1.05rem; line-height: 1.6;">
+                    <p style="text-align: center; color: #597ef7;"><i class="fa-solid fa-spinner fa-spin"></i>
+                        โปรดระบุข้อมูลฟาร์มของคุณและกด "อัปเดตข้อมูลไร่" เพื่อให้ AI วิเคราะห์ภาพรวมทั้งหมด</p>
                 </div>
             </div>
         </section>
     </main>
-        <!-- News Section (Green in sketch) -->
-        <!-- <section class="bottom-section">
+    <!-- News Section (Green in sketch) -->
+    <!-- <section class="bottom-section">
             <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตร</h2>
             <div class="news-list">
                 <a href="frontend/news/newspart.html?id=1" style="text-decoration: none; color: inherit;">
@@ -170,7 +196,7 @@
                     </div>
                 </a> -->
 
-                <!-- <a href="frontend/news/newspart.html?id=3" style="text-decoration: none; color: inherit;">
+    <!-- <a href="frontend/news/newspart.html?id=3" style="text-decoration: none; color: inherit;">
                     <div class="glass-card news-card hover-lift">
                         <img src="https://images.unsplash.com/photo-1595822556555-d3c528f804fc?auto=format&fit=crop&q=80&w=600&h=300"
                             alt="Rice Market" class="news-image">
@@ -257,18 +283,64 @@
                 document.getElementById('dashCondition').textContent = desc;
                 document.getElementById('dashHumidity').textContent = current.relative_humidity_2m + '%';
                 document.getElementById('dashWind').textContent = Math.round(current.wind_speed_10m) + ' กม./ชม.';
+
+                // Simulate Water & pH
+                const simWater = Math.floor(Math.random() * 5) + 8; // 8-12 cm
+                const simPh = (Math.random() * 1.0 + 5.5).toFixed(1); // 5.5-6.5
+                document.getElementById('dashWater').textContent = simWater + ' ซม.';
+                document.getElementById('dashPH').textContent = simPh;
+
+                // AI Insight for Dashboard Weather
+                const weatherAI = document.getElementById('dashWeatherAI');
+                if (weatherAI) {
+                    let insight = '';
+                    // Simple logic based on weather code and temp
+                    if (current.weather_code >= 51 && current.weather_code <= 99) {
+                        insight = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> มีแนวโน้มฝนตก ไม่แนะนำให้ฉีดพ่นปุ๋ยหรือสารเคมีในวันนี้';
+                    } else if (current.temperature_2m > 35) {
+                        insight = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> อากาศร้อนจัด ควรเฝ้าระวังระดับน้ำในนาข้าวไม่ให้แห้งขอด';
+                    } else {
+                        insight = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> สภาพอากาศแจ่มใส เหมาะสมสำหรับการลงพื้นที่ดูแลแปลงนาและฉีดพ่นฮอร์โมน';
+                    }
+                    weatherAI.innerHTML = insight;
+                }
+
             } catch (e) {
                 console.error("Dashboard weather fetch error", e);
                 document.getElementById('dashCondition').textContent = 'โหลดข้อมูลไม่สำเร็จ';
             }
         }
 
-        // --- Simulated Real-time Rice Prices (Matches rice_price.js) ---
-        function calculateRealisticRicePrice() {
+        // --- Simulated Real-time Rice Prices ---
+        window.dashRiceChartInstance = null; // Store chart globally to destroy/recreate
+
+        function updateDashboardRicePrice(variety = 'white_jasmine105') {
             const today = new Date();
             const currentYear = today.getFullYear();
             const currentMonth = today.getMonth();
-            const basePrice = 14500;
+
+            let basePrice = 14500;
+            let varietyNameTh = "ข้าวหอมมะลิ (AI พยากรณ์)"; // Default for dashboard
+
+            switch (variety) {
+                case 'khorgor15':
+                    basePrice = 13800;
+                    varietyNameTh = "แนวโน้มราคา ข้าว กข15";
+                    break;
+                case 'thungkula_jasmine':
+                    basePrice = 16000;
+                    varietyNameTh = "แนวโน้มราคา ข้าวหอมมะลิทุ่งกุลาฯ";
+                    break;
+                case 'white_jasmine105':
+                default:
+                    basePrice = 14500;
+                    varietyNameTh = "แนวโน้มราคา ข้าวขาวดอกมะลิ 105";
+                    break;
+            }
+
+            // Update title in UI
+            const titleEl = document.querySelector('.price-card .card-header h3');
+            if (titleEl) titleEl.textContent = varietyNameTh;
 
             function pseudoRandom(seed) {
                 let x = Math.sin(seed++) * 10000;
@@ -277,57 +349,131 @@
 
             const priceData = [];
             for (let i = 0; i < 12; i++) {
-                let seasonalOffset = pseudoRandom(currentYear * 12 + i) * 600 - 300;
-                if (i >= 10) seasonalOffset -= 800; // Harvest season
-                else if (i >= 2 && i <= 4) seasonalOffset += 500; // Dry season
+                let seasonalOffset = pseudoRandom(currentYear * 12 + i + basePrice) * 600 - 300;
+                if (i >= 10) seasonalOffset -= 800;
+                else if (i >= 2 && i <= 4) seasonalOffset += 500;
 
-                let change = seasonalOffset + (pseudoRandom(currentYear + i * 7) * 400 - 200);
+                let change = seasonalOffset + (pseudoRandom(currentYear + i * 7 + basePrice) * 400 - 200);
                 let currentMonthPrice = Math.round((basePrice + change) / 100) * 100;
                 priceData.push(currentMonthPrice);
             }
 
-            const dailyFluctuation = Math.round((pseudoRandom(today.getDate() * currentMonth) * 400 - 200) / 10) * 10;
+            const dailyFluctuation = Math.round((pseudoRandom(today.getDate() * currentMonth + basePrice) * 400 - 200) / 10) * 10;
             const todayPrice = priceData[currentMonth] + dailyFluctuation;
 
-            const yesterdayFluctuation = Math.round((pseudoRandom((today.getDate() - 1) * currentMonth) * 400 - 200) / 10) * 10;
-            const yesterdayPrice = priceData[currentMonth] + yesterdayFluctuation;
-            const priceDiff = todayPrice - yesterdayPrice;
+            // Next month forecast calculation
+            const nextMonthIndex = (currentMonth + 1) % 12;
+            const nextMonthPrice = priceData[nextMonthIndex];
+            const priceDiffFromToday = nextMonthPrice - todayPrice;
 
-            return { todayPrice, priceDiff, priceData, currentMonth };
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const data = calculateRealisticRicePrice();
-
-            document.getElementById('dashRicePrice').textContent = data.todayPrice.toLocaleString() + ' ฿';
+            document.getElementById('dashRicePrice').textContent = nextMonthPrice.toLocaleString() + ' ฿';
 
             const trendObj = document.getElementById('dashRiceTrend');
             const iconObj = document.getElementById('dashRiceIcon');
             const diffObj = document.getElementById('dashRiceDiff');
 
-            if (data.priceDiff > 0) {
-                trendObj.className = 'trend up'; // Keep up class for green text in CSS if applicable
+            if (priceDiffFromToday > 0) {
+                trendObj.className = 'trend up';
                 trendObj.style.color = '#10b981';
                 iconObj.className = 'fa-solid fa-arrow-trend-up';
-                diffObj.textContent = '+' + data.priceDiff + ' ฿';
-            } else if (data.priceDiff < 0) {
+                diffObj.textContent = '+' + priceDiffFromToday.toLocaleString() + ' ฿ (คาดการณ์)';
+            } else if (priceDiffFromToday < 0) {
                 trendObj.className = 'trend down';
                 trendObj.style.color = '#ef4444';
                 iconObj.className = 'fa-solid fa-arrow-trend-down';
-                diffObj.textContent = data.priceDiff + ' ฿';
+                diffObj.textContent = priceDiffFromToday.toLocaleString() + ' ฿ (คาดการณ์)';
             } else {
                 trendObj.className = 'trend';
                 trendObj.style.color = '#cbd5e1';
                 iconObj.className = 'fa-solid fa-minus';
-                diffObj.textContent = 'ทรงตัว';
+                diffObj.textContent = 'คงที่ (คาดการณ์)';
             }
 
             const aiObj = document.getElementById('dashRiceAI');
-            if (data.todayPrice < data.priceData[(data.currentMonth + 1) % 12]) {
-                aiObj.innerHTML = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> คาดว่าราคาจะปรับสูงขึ้นในเดือนหน้า แนะนำให้ <strong>ชะลอการขาย</strong> เพื่อรอผลกำไรสูงสุด';
-            } else {
-                aiObj.innerHTML = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> ราคาปัจจุบันค่อนข้างสูง ควรรีบ <strong>ขายทันที</strong> ก่อนแนวโน้มราคาจะตกลงในเดือนหน้า';
+            if (aiObj) {
+                if (priceDiffFromToday > 0) {
+                    aiObj.innerHTML = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> คาดว่าราคาจะสูงกว่าปัจจุบัน แนะนำให้ <strong>ชะลอการขาย</strong> เพื่อรอผลกำไรสูงสุดในเดือนหน้า';
+                } else {
+                    aiObj.innerHTML = '<strong><i class="fa-solid fa-robot"></i> AI แนะนำ:</strong> คาดว่าราคาจะปรับตัวลดลง ควรรีบ <strong>ขายทันที</strong> เพื่อป้องกันความเสี่ยงจากราคาตกต่ำ';
+                }
             }
+
+            // --- Render Mini Chart for Dashboard ---
+            const canvasEl = document.getElementById('dashRiceChart');
+            if (!canvasEl) return;
+            const ctx = canvasEl.getContext('2d');
+
+            if (window.dashRiceChartInstance) {
+                window.dashRiceChartInstance.destroy();
+            }
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 120);
+            gradient.addColorStop(0, 'rgba(14, 165, 233, 0.3)');
+            gradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
+
+            const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+
+            const pointColors = priceData.map((_, index) => index === currentMonth ? '#fbbf24' : '#ffffff');
+            const pointRadiuses = priceData.map((_, index) => index === currentMonth ? 5 : 3);
+            const pointBorders = priceData.map((_, index) => index === currentMonth ? '#0ea5e9' : '#0ea5e9');
+
+            window.dashRiceChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'ราคา (บาท/ตัน)',
+                        data: priceData,
+                        borderColor: '#0ea5e9',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointBackgroundColor: pointColors,
+                        pointBorderColor: pointBorders,
+                        pointBorderWidth: 2,
+                        pointRadius: pointRadiuses,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.parsed.y.toLocaleString() + ' ฿/ตัน';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            grid: { display: false },
+                            ticks: { font: { size: 9 }, color: '#94a3b8' }
+                        },
+                        y: {
+                            display: false,
+                            min: Math.min(...priceData) - 500,
+                            max: Math.max(...priceData) + 500
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    layout: {
+                        padding: { left: 0, right: 0, top: 10, bottom: 0 }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial render with default variety
+            updateDashboardRicePrice('white_jasmine105');
         });
     </script>
 </body>
