@@ -141,6 +141,22 @@
             /* Darker orange on hover */
         }
 
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #d35400;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: #e67e22;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .news-card-horizontal {
@@ -177,7 +193,7 @@
         </div>
         <nav class="sidebar-nav">
             <a href="../user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="../index/index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
             <a href="newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
             <a href="../index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
             <a href="../index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
@@ -188,6 +204,8 @@
 
     <main class="dashboard-container">
         <div class="news-page-wrapper">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
+
             <div class="page-header">
                 <h1><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตรทั้งหมด</h1>
                 <p>อัปเดตความเคลื่อนไหว เทคโนโลยี และแนวโน้มเกี่ยวกับข้าวและเกษตรกรรม</p>
