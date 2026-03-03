@@ -7,7 +7,7 @@
     <title>ข่าวสารการเกษตร - Smart Rice AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <style>
         /* Orange/Earthy theme for agricultural news */
         body {
@@ -141,6 +141,22 @@
             /* Darker orange on hover */
         }
 
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #d35400;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: #e67e22;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .news-card-horizontal {
@@ -176,18 +192,20 @@
             <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
-            <a href="../user/index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="../user/user_account.html" class="nav-item"><i class="fa-solid fa-user"></i> บัญชี</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
             <a href="newspage.html" class="nav-item"><i class="fa-solid fa-newspaper"></i> ข่าวสาร</a>
-            <a href="../user/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
-            <a href="../user/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
+            <a href="../index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="../index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="../user/user_setting.html" class="nav-item"><i class="fa-solid fa-gear"></i> ตั้งค่า</a>
             <a href="../frontindex.html" class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</a>
         </nav>
     </aside>
 
     <main class="dashboard-container">
         <div class="news-page-wrapper">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
+
             <div class="page-header">
                 <h1><i class="fa-solid fa-newspaper"></i> ข่าวสารการเกษตรทั้งหมด</h1>
                 <p>อัปเดตความเคลื่อนไหว เทคโนโลยี และแนวโน้มเกี่ยวกับข้าวและเกษตรกรรม</p>
@@ -225,7 +243,7 @@
         </div>
     </div>
 
-    <script src="../js/app.js"></script>
+    <script src="../../js/app.js"></script>
     <script>
         // Database expansion to 10 items
         const newsDatabaseExpanded = [
