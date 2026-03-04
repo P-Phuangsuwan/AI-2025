@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateFarmData() {
     const size = document.getElementById('farmSize').value || 15;
     const rice = document.getElementById('riceType').value;
+    const riceStage = document.getElementById('riceStage') ? document.getElementById('riceStage').value : 'seedling';
     const soil = document.getElementById('soilType').value;
     const expectedYieldInput = document.getElementById('expectedYield').value || 500;
 
@@ -165,15 +166,68 @@ function updateFarmData() {
         // 1. Get Current Weather Logic (Simple check from DOM if available)
         const weatherCondition = document.getElementById('dashCondition') ? document.getElementById('dashCondition').textContent : '';
         const tempText = document.getElementById('dashTemp') ? document.getElementById('dashTemp').textContent : '';
+        const humidityText = document.getElementById('dashHumidity') ? document.getElementById('dashHumidity').textContent : '';
+        const rainProbText = document.getElementById('dashRainProb') ? document.getElementById('dashRainProb').textContent : '';
+        const waterText = document.getElementById('dashWater') ? document.getElementById('dashWater').textContent : '';
+        const phText = document.getElementById('dashPH') ? document.getElementById('dashPH').textContent : '';
+
+        const temp = parseInt(tempText) || 0;
+        const humidity = parseInt(humidityText) || 0;
+        const rainProb = parseInt(rainProbText) || 0;
+        const waterLevel = parseInt(waterText) || 0;
+        const soilPH = parseFloat(phText) || 0;
+
         let weatherWarning = "";
         let isRaining = weatherCondition.includes('ฝน') || weatherCondition.includes('พายุ');
 
         if (isRaining) {
             weatherWarning = `<strong style="color: #e53e3e;">ระมัดระวังฝนตก:</strong> งดการฉีดพ่นปุ๋ยทางใบในระยะนี้ และเตรียมสูบน้ำออกจากแปลงหากน้ำท่วมขังเกินเกณฑ์`;
-        } else if (parseInt(tempText) > 35) {
+        } else if (temp > 35) {
             weatherWarning = `<strong style="color: #d69e2e;">อากาศร้อนจัด:</strong> ควรรักษาระดับน้ำในแปลงให้เหมาะสมเพื่อช่วยลดอุณหภูมิของรากข้าว`;
         } else {
             weatherWarning = `<strong style="color: #38a169;">สภาพอากาศเหมาะสม:</strong> เป็นช่วงเวลาที่ดีในการบำรุงรักษาแปลงนา หรือลงพื้นที่เพื่อฉีดพ่นฮอร์โมน`;
+        }
+
+        // 1.1 Water Management
+        let waterAction = "";
+        if (waterLevel <= 2 && rainProb < 30) {
+            waterAction = `ระดับน้ำจำลองต่ำมากแค่ ${waterLevel} ซม. <strong>ควรรีบสูบน้ำเข้าเติม</strong> รักษาระดับ 3-5 ซม.`;
+        } else if (rainProb > 80 || waterLevel > 12) {
+            waterAction = `โอกาสฝนสูง (${rainProb}%) หรือระดับน้ำมากเกินไป (${waterLevel} ซม.) <strong>เตรียมทะลวงท่อระบายน้ำขัง</strong>`;
+        } else {
+            waterAction = `ระดับน้ำเหมาะสม สภาพการจัดการน้ำอยู่ในเกณฑ์ปลอดภัย`;
+        }
+
+        // 1.2 Temp Management
+        let tempAction = "";
+        if (temp >= 35) {
+            tempAction = `อุณหภูมิ ${temp}°C <strong>เฝ้าระวังข้าวเมล็ดลีบช่วงตั้งท้อง</strong> แนะนำให้เพิ่มระดับน้ำช่วยระบายความร้อนที่ราก`;
+        } else if (temp <= 20) {
+            tempAction = `อากาศเย็น ${temp}°C อาจทำให้ข้าวชะงักการเติบโต เพิ่มระดับน้ำรักษาอุณหภูมิดิน`;
+        } else {
+            tempAction = `อุณหภูมิกำลังดี (${temp}°C) เหมาะกับการเจริญเติบโต`;
+        }
+
+        // 1.3 Disease Management
+        let diseaseAction = "";
+        if (humidity > 80 && temp >= 28 && temp <= 32) {
+            diseaseAction = `<strong>เสี่ยงเกิดโรคไหม้/เพลี้ยกระโดด</strong> เนื่องจากอากาศร้อนชื้น ควรชะลอการใส่ปุ๋ยยูเรีย`;
+        } else if (rainProb > 70) {
+            diseaseAction = `ระวังการระบาดของโรคขอบใบแห้ง ควรเลี่ยงทางเดินลุยแปลงขณะใบเปียก`;
+        } else {
+            diseaseAction = `ความเสี่ยงโรคและแมลงอยู่ในเกณฑ์ต่ำ ควรหมั่นถอนวัชพืชเพื่อให้แสงสาดส่องทั่วถึง`;
+        }
+
+        // 1.4 Soil Management
+        let soilAction = "";
+        if (soilPH > 0) { // check if simulated ph exists
+            if (soilPH < 5.5) {
+                soilAction = `ค่า pH ดิน ${soilPH} <strong>ระวังภาวะดินเปรี้ยว</strong> ส่งผลให้ห้วงติดดอกออกผลน้อย พิจารณาใช้ปูนขาวปรับสภาพเผื่อรอบถัดไป`;
+            } else if (soilPH > 6.5) {
+                soilAction = `ค่า pH ดิน ${soilPH} มีความเป็นด่าง ข้าวอาจดูดซึมเหล็ก/สังกะสีได้น้อย เลี่ยงใช้ปุ๋ยด่างแรง`;
+            } else {
+                soilAction = `ค่า pH ดิน ${soilPH} เหมาะสมอย่างยิ่งกับการปลูกข้าว ระบบรากดูดซึมสารอาหารได้เต็มที่`;
+            }
         }
 
         // 2. Get Price Forecast Logic (From DOM)
@@ -188,19 +242,33 @@ function updateFarmData() {
         }
 
         // 3. Farm Specific Logic (From above calculations)
-        let farmAction = `สำหรับพื้นที่ ${size} ไร่ ที่ปลูก${rice === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105' : (rice === 'khorgor15' ? 'ข้าว กข15' : 'ข้าวหอมมะลิทุ่งกุลาฯ')} ในสภาพ${soil === 'clay' ? 'ดินเหนียว' : (soil === 'sand' ? 'ดินทราย' : 'ดินร่วน')}`;
+        let stageName = "ระยะกล้า";
+        if (riceStage === 'tillering') stageName = "ระยะแตกกอ";
+        if (riceStage === 'booting') stageName = "ระยะตั้งท้อง";
+        if (riceStage === 'flowering') stageName = "ระยะออกรวง";
+        let farmAction = `สำหรับพื้นที่ ${size} ไร่ ที่ปลูก${rice === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105' : (rice === 'khorgor15' ? 'ข้าว กข15' : 'ข้าวหอมมะลิทุ่งกุลาฯ')} (<strong>${stageName}</strong>) ในสภาพ${soil === 'clay' ? 'ดินเหนียว' : (soil === 'sand' ? 'ดินทราย' : 'ดินร่วน')}`;
 
         // Assemble Unified Report
         let unifiedHTML = `
             <p>สวัสดีครับเกษตรกร! จากข้อมูลฟาร์ม สภาพอากาศ และแนวโน้มราคาในปัจจุบัน นี่คือบทสรุปคำแนะนำที่ AI ประมวลผลให้คุณโดยเฉพาะ:</p>
             
             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <h4 style="color: #d97706; margin-bottom: 8px; border-bottom: 1px solid #fde68a; padding-bottom: 5px;"><i class="fa-solid fa-cloud-sun"></i> 1. การรับมือสภาพอากาศ</h4>
+                <h4 style="color: #d97706; margin-bottom: 8px; border-bottom: 1px solid #fde68a; padding-bottom: 5px;"><i class="fa-solid fa-cloud-sun"></i> 1. การรับมือสภาพอากาศ ภาพรวม</h4>
                 <p style="font-size: 0.95rem; margin-bottom: 0;">${weatherWarning}</p>
             </div>
 
+             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <h4 style="color: #0284c7; margin-bottom: 8px; border-bottom: 1px solid #bae6fd; padding-bottom: 5px;"><i class="fa-solid fa-droplet"></i> 2. การจัดการสภาพต้นข้าวเชิงลึก</h4>
+                <ul style="font-size: 0.9rem; padding-left: 20px; margin-bottom: 0; line-height: 1.6;">
+                    <li><strong><i class="fa-solid fa-water" style="color:#0284c7; width:20px;"></i> น้ำ:</strong> ${waterAction}</li>
+                    <li><strong><i class="fa-solid fa-temperature-half" style="color:#ea580c; width:20px;"></i> อุณหภูมิ:</strong> ${tempAction}</li>
+                    <li><strong><i class="fa-solid fa-bug" style="color:#e11d48; width:20px;"></i> โรค/แมลง:</strong> ${diseaseAction}</li>
+                    <li><strong><i class="fa-solid fa-flask" style="color:#8b5cf6; width:20px;"></i> สภาพดิน:</strong> ${soilAction}</li>
+                </ul>
+            </div>
+
             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <h4 style="color: #059669; margin-bottom: 8px; border-bottom: 1px solid #a7f3d0; padding-bottom: 5px;"><i class="fa-solid fa-seedling"></i> 2. การจัดการฟาร์มของคุณ</h4>
+                <h4 style="color: #059669; margin-bottom: 8px; border-bottom: 1px solid #a7f3d0; padding-bottom: 5px;"><i class="fa-solid fa-seedling"></i> 3. การจัดการที่ดินของคุณ</h4>
                 <p style="font-size: 0.95rem; margin-bottom: 5px;">${farmAction}</p>
                 <ul style="font-size: 0.9rem; padding-left: 20px; margin-bottom: 0; line-height: 1.5;">
                     <li><strong>เป้าหมายผลผลิต:</strong> ${totalExpectedYield.toLocaleString()} กก. (เป้า ${targetYieldPerRai} กก./ไร่)</li>
@@ -210,7 +278,7 @@ function updateFarmData() {
             </div>
 
             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                <h4 style="color: #2563eb; margin-bottom: 8px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px;"><i class="fa-solid fa-chart-line"></i> 3. กลยุทธ์การขายข้าว</h4>
+                <h4 style="color: #2563eb; margin-bottom: 8px; border-bottom: 1px solid #bfdbfe; padding-bottom: 5px;"><i class="fa-solid fa-chart-line"></i> 4. กลยุทธ์การขายข้าว</h4>
                 <p style="font-size: 0.95rem; margin-bottom: 0;">${priceAction}</p>
             </div>
             
