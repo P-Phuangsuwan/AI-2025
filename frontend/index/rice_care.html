@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การบำรุงดูแลข้าว - Smart Rice AI</title>
+    <link rel="icon" href="../../img/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/rice_care.css">
+</head>
+
+<body>
+    <!-- Top Header (Black in sketch) -->
+    <header class="top-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-leaf"></i> <span>Smart Rice AI</span>
+        </div>
+        <!-- Additional Menu (Yellow in sketch) -->
+        <button class="menu-btn" title="เมนูเพิ่มเติม">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay & Menu -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-bars"></i> เมนูเพิ่มเติม</h3>
+            <button id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="../../index.html" class="nav-item"><i class="fa-solid fa-home"></i> หน้าแรก</a>
+            <a href="weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
+            <a href="rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i> ราคาข้าวหอมมะลิ</a>
+            <a href="rice_care.html" class="nav-item"><i class="fa-solid fa-seedling"></i> การบำรุงดูแลข้าว</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-container rice-care-container">
+
+        <a href="../../index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> กลับไปหน้าแรก</a>
+
+        <div class="page-title-area text-white">
+            <h2 class="section-title"><i class="fa-solid fa-stethoscope"></i> การจัดการความเครียดของข้าว</h2>
+            <p class="subtitle">วินิจฉัยปัญหาและรับคำแนะนำการดูแลแปลงนาจาก Smart Rice AI</p>
+        </div>
+
+        <!-- Grey Tabs Menu -->
+        <div class="care-tabs">
+            <button class="care-tab-btn active" data-tab="water">
+                <i class="fa-solid fa-water"></i> การจัดการเรื่องน้ำ (ภัยแล้ง/น้ำท่วม)
+            </button>
+            <button class="care-tab-btn" data-tab="temperature">
+                <i class="fa-solid fa-temperature-half"></i> การจัดการเรื่องอุณหภูมิ
+            </button>
+            <button class="care-tab-btn" data-tab="disease">
+                <i class="fa-solid fa-bug"></i> การจัดการโรคและแมลง
+            </button>
+            <button class="care-tab-btn" data-tab="soil">
+                <i class="fa-solid fa-flask"></i> การจัดการดิน
+            </button>
+        </div>
+
+        <!-- Two Column Content Area (Light Blue Outer Outline) -->
+        <div class="care-content-area">
+
+            <!-- Column 1: Farm Information (Left Lightblue box in sketch) -->
+            <div class="care-form-panel">
+                <h3><i class="fa-solid fa-map-location-dot"></i> ข้อมูลพื้นที่ปลูกของเกษตรกร</h3>
+
+                <div class="form-group">
+                    <label for="riceVariety"><i class="fa-solid fa-seedling"></i> พันธุ์ข้าว</label>
+                    <select id="riceVariety">
+                        <option value="white_jasmine105">ข้าวขาวดอกมะลิ 105</option>
+                        <option value="khorgor15">ข้าว กข15</option>
+                        <option value="other">พันธุ์อื่นๆ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="riceStage"><i class="fa-solid fa-seedling"></i> ระยะการเจริญเติบโตปัจจุบัน</label>
+                    <select id="riceStage">
+                        <option value="seedling">ระยะกล้า (0-30 วัน)</option>
+                        <option value="tillering">ระยะแตกกอ (30-60 วัน)</option>
+                        <option value="booting">ระยะตั้งท้อง (60-90 วัน)</option>
+                        <option value="flowering">ระยะออกรวง (90 วันขึ้นไป)</option>
+                    </select>
+                </div>
+
+                <!-- Real-time Context Box (Dynamic from API) -->
+                <div class="form-group real-time-context mt-3">
+                    <label style="color: #0284c7; font-weight: 600;"><i class="fa-solid fa-satellite-dish"></i>
+                        ข้อมูลสภาพอากาศปัจจุบัน (ดึงจากระบบ)</label>
+                    <div id="dynamicContextBox"
+                        style="background: #f8fafc; border: 1px solid #bae6fd; border-radius: 8px; padding: 15px; font-size: 0.95rem; line-height: 1.5;">
+                        <div class="text-center" style="color: var(--text-muted);">
+                            <i class="fa-solid fa-spinner fa-spin"></i> กำลังค้นหาตำแหน่งและดึงข้อมูลอากาศ...
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-analyze" id="analyzeBtn" disabled>
+                    <i class="fa-solid fa-spinner fa-spin"></i> รอข้อมูลระบบ...
+                </button>
+            </div>
+
+            <!-- Column 2: AI Recommendations (Right Lightblue box in sketch) -->
+            <div class="care-ai-panel">
+                <h3><i class="fa-solid fa-robot"></i> คำแนะนำจาก AI</h3>
+
+                <div class="ai-recommendation-content" id="aiResultContent">
+                    <!-- Default Empty State -->
+                    <div class="empty-state">
+                        <i class="fa-regular fa-lightbulb"></i>
+                        <p>กรอกข้อมูลพื้นที่ปลูกของคุณด้านซ้าย<br>และกด <strong>"วิเคราะห์คำแนะนำ"</strong><br>เพื่อให้
+                            AI ประมวลผลวิธีแก้ไขที่เหมาะสม</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Chatbot FAB (Blue in sketch) -->
+    <div class="chatbot-fab" id="chatbotBtn">
+        <i class="fa-solid fa-comment-dots"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window glass-card" id="chatbotWindow">
+        <div class="chat-header">
+            <h3><i class="fa-solid fa-robot"></i> ผู้ช่วยฟาร์มอัจฉริยะ (AI)</h3>
+            <button id="closeChat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                สวัสดีครับ! 🌾 หากมีข้อสงสัยเกี่ยวกับอาการผิดปกติของต้นข้าว หรือต้องการคำแนะนำเรื่องปุ๋ย/ยา
+                สอบถามผมได้เลยครับ
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="อธิบายอาการของข้าวที่พบ...">
+            <button id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/rice_care.js"></script>
+</body>
+
+</html>

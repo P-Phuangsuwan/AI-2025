@@ -35,6 +35,8 @@
             <a href="frontend/index/weather.html" class="nav-item"><i class="fa-solid fa-cloud-sun"></i> สภาพอากาศ</a>
             <a href="frontend/index/rice_price.html" class="nav-item"><i class="fa-solid fa-tags"></i>
                 ราคาข้าวหอมมะลิ</a>
+            <a href="frontend/index/rice_care.html" class="nav-item"><i class="fa-solid fa-seedling"></i>
+                การบำรุงดูแลข้าว</a>
         </nav>
     </aside>
 
@@ -61,7 +63,7 @@
                                     <i class="fa-solid fa-droplet"></i> ความชื้น: <span id="dashHumidity">--%</span>
                                 </div>
                                 <div class="detail-item">
-                                    <i class="fa-solid fa-wind"></i> ลม: <span id="dashWind">-- กม./ชม.</span>
+                                    <i class="fa-solid fa-umbrella"></i> โอกาสฝนตก: <span id="dashRainProb">--%</span>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fa-solid fa-water" style="color: #4facfe;"></i> ระดับน้ำ: <span
@@ -202,7 +204,7 @@
 
         async function fetchDashboardWeather(lat, lon) {
             try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`;
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&hourly=precipitation_probability&timezone=auto&forecast_days=1`;
                 const res = await fetch(url);
                 const data = await res.json();
 
@@ -212,7 +214,9 @@
                 document.getElementById('dashTemp').textContent = Math.round(current.temperature_2m) + '°C';
                 document.getElementById('dashCondition').textContent = desc;
                 document.getElementById('dashHumidity').textContent = current.relative_humidity_2m + '%';
-                document.getElementById('dashWind').textContent = Math.round(current.wind_speed_10m) + ' กม./ชม.';
+
+                const maxRainProb = data.hourly ? Math.max(...data.hourly.precipitation_probability) : 0;
+                document.getElementById('dashRainProb').textContent = maxRainProb + '%';
 
                 // Simulate Water & pH
                 const simWater = Math.floor(Math.random() * 5) + 8; // 8-12 cm

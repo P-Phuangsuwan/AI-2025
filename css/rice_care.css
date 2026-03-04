@@ -1,0 +1,239 @@
+/* rice_care.css */
+
+.rice-care-container {
+    padding: 20px;
+    margin-top: 60px;
+    /* Offset for top header */
+}
+
+/* Tabs Navigation */
+.care-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--gray-medium, #e0e0e0);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+}
+
+.care-tab-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.care-tab-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.care-tab-btn.active {
+    background: linear-gradient(135deg, #a7f3d0, #2ecc71);
+    /* Changed to explicit green variables */
+    color: white;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+/* Main Content Area (Light Blue outline equivalent) */
+.care-content-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two columns like the sketch */
+    gap: 25px;
+    background: linear-gradient(to bottom right, #f0fdf4, #e0f2fe);
+    /* Green-Blue subtle mix, agricultural feel */
+    padding: 25px;
+    border-radius: 16px;
+    border: 2px solid #bae6fd;
+    /* Light blue border */
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 900px) {
+    .care-content-area {
+        grid-template-columns: 1fr;
+        /* Stack on smaller screens */
+    }
+}
+
+/* Left Panel - Farm Data form */
+.care-form-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-top: 5px solid #2ecc71;
+    /* Changed to explicit green */
+}
+
+.care-form-panel h3 {
+    color: #27ae60;
+    /* Changed to explicit dark green */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2ecc71;
+    /* Changed to explicit green */
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+.btn-analyze {
+    width: 100%;
+    padding: 12px;
+    background: #2ecc71;
+    /* Changed to explicit green */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-analyze:hover {
+    background: #27ae60;
+    /* Changed to explicit dark green */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+
+/* Right Panel - AI Recommendations */
+.care-ai-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-top: 5px solid #0ea5e9;
+    /* Blue accent for AI */
+    display: flex;
+    flex-direction: column;
+}
+
+.care-ai-panel h3 {
+    color: #0284c7;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ai-recommendation-content {
+    flex-grow: 1;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px dashed #cbd5e1;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 15px;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #bae6fd;
+}
+
+.ai-result-box {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.ai-warning {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.ai-success {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.ai-info {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Chatbot visibility override if necessary for this page */
+#chatbotWindow {
+    z-index: 1000;
+}
