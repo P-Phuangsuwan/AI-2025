@@ -162,6 +162,10 @@ function generateAIResponse(category, stage, variety, weather) {
     if (stage === 'booting') stageName = "ระยะตั้งท้อง";
     if (stage === 'flowering') stageName = "ระยะออกรวง";
 
+    // Get Variety Name
+    let varietyName = "ขาวดอกมะลิ 105";
+    if (variety === 'khorgor15') varietyName = "กข15";
+
     const { temp, humidity, rainProb, waterLevel } = weather;
 
     if (category === 'water') {
@@ -175,6 +179,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li><strong>การจัดการน้ำ:</strong> เร่งสูบน้ำเข้าแปลงนา รักษาระดับน้ำให้ได้ 3-5 ซม.</li>
                     <li>งดใส่ปุ๋ยเคมีทางดินในช่วงนี้ เพื่อป้องกันรากไหม้</li>
+                    <li><strong style="color:#d97706;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ทนแล้งได้ดีกรุณารอรับน้ำฝน แต่ห้ามปล่อยให้ขาดน้ำช่วงข้าวตั้งท้องเด็ดขาด' : 'ข้าว กข15 อายุเก็บเกี่ยวสั้น หากเจอด้านภัยแล้งขัดจังหวะจะกระทบผลผลิตทันที ควรรีบให้น้ำ'}</li>
                 </ul>
             `;
         } else if (rainProb > 80 || waterLevel > 12) {
@@ -187,6 +192,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li>เตรียมระบายน้ำออกจากแปลงนา เพื่อไม่ให้ระดับน้ำท่วมต้นกระหม่อมข้าวใน${stageName}</li>
                     <li>หากน้ำท่วมขังเกิน 7 วัน รากจะขาดออกซิเจน หลังน้ำลดให้ฉีดพ่นอาหารเสริมทางใบ</li>
+                    <li><strong style="color:#d97706;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ข้าวต้นสูงเสี่ยงต่อการล้มหากน้ำท่วมขังและกระแสน้ำแรง' : 'พันธุ์นี้ไม่ทนต่อน้ำท่วมขังข้ามสัปดาห์ ควรเร่งระบายน้ำออกให้เร็วที่สุด'}</li>
                 </ul>
             `;
         } else {
@@ -195,7 +201,10 @@ function generateAIResponse(category, stage, variety, weather) {
                      <strong><i class="fa-solid fa-circle-check"></i> ระดับน้ำเหมาะสม</strong>
                      <p>สภาพแวดล้อมปัจจุบัน (โอกาสฝน ${rainProb}%) ไม่มีความเสี่ยงเรื่องปัญหาน้ำมากนัก</p>
                 </div>
-                <ul><li>พยายามรักษาระดับน้ำให้เหมาะสมกับ${stageName} อย่างต่อเนื่อง หากอยู่ระยะแตกกอ อาจใช้วิธีเปียกสลับแห้งได้</li></ul>
+                <ul>
+                    <li>พยายามรักษาระดับน้ำให้เหมาะสมกับ${stageName} อย่างต่อเนื่อง หากอยู่ระยะแตกกอ อาจใช้วิธีเปียกสลับแห้งได้</li>
+                    <li><strong style="color:#059669;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'รักษาระดับน้ำ 5-10 ซม. ช่วยคุมวัชพืชได้ดี' : 'ข้าว กข15 ตอบสนองต่อการให้น้ำที่ดีตามวงรอบ ควรดูแลไม่ให้ดินแห้งสลับเปียกบ่อยเกินไป'}</li>
+                </ul>
              `;
         }
 
@@ -210,6 +219,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li>เพิ่มระดับน้ำในแปลงนาให้สูงขึ้นเพื่อลดอุณหภูมิดิน</li>
                     <li>ฉีดพ่นฮอร์โมนพืชเสริมความแข็งแรงในช่วงเช้าตรู่ (ก่อนแดดจัด)</li>
+                    <li><strong style="color:#ea580c;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ไวต่อแสงและอุณหภูมิสูงอาจกระทบการผสมเกสรและทำให้สูญเสียกลิ่นหอม' : 'กข15 ไวต่อแสงเช่นกัน ควรหมั่นสังเกตการออกดอกที่อาจเร็วขึ้นหรือช้าลงตามสภาพอากาศ'}</li>
                 </ul>
             `;
         } else if (temp <= 20) {
@@ -219,7 +229,10 @@ function generateAIResponse(category, stage, variety, weather) {
                     <p>อุณหภูมิ ${temp}°C อาจทำให้ข้าวชะงักการเจริญเติบโต</p>
                 </div>
                 <h4>คำแนะนำ:</h4>
-                <ul><li>เพิ่มระดับน้ำในแปลงนาเพื่อช่วยรักษาอุณหภูมิไม่ให้ลดต่ำเกินไปในช่วงกลางคืน</li></ul>
+                <ul>
+                    <li>เพิ่มระดับน้ำในแปลงนาเพื่อช่วยรักษาอุณหภูมิไม่ให้ลดต่ำเกินไปในช่วงกลางคืน</li>
+                    <li><strong style="color:#0284c7;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'อากาศเย็นจัดอาจทำให้ใบข้าวเหลืองแกร็น ควรใช้สังกะสีฉีดพ่นเสริม' : 'กข15 อาจใช้เวลางอกตอนกล้าช้าลงหากอากาศเย็นจัด'}</li>
+                </ul>
             `;
         } else {
             html += `
@@ -241,6 +254,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li><strong>ระวังโรค:</strong> ควรชะลอการใส่ปุ๋ยไนโตรเจน (เช่น ยูเรีย) เพราะจะทำให้ใบข้าวอ่อนแอรับเชื้อราได้ง่าย</li>
                     <li><strong>ตรวจสอบแปลง:</strong> หมั่นเดินสำรวจแปลงนาอย่างใกล้ชิด หากพบแผลรูปตาสีน้ำตาล ให้ใช้สารชีวภัณฑ์ <em>ไตรโคเดอร์มา</em> ฉีดพ่น</li>
+                    <li><strong style="color:#e11d48;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'พันธุ์นี้ค่อนข้างอ่อนแอต่อโรคไหม้ ควรเฝ้าระวังเป็นพิเศษเมื่อมีความชื้นสูง' : 'พันธุ์กข15 มักมีปัญหาโรคขอบใบแห้ง ควรสำรวจแปลงนาเป็นประจำทุกสัปดาห์'}</li>
                 </ul>
              `;
         } else if (rainProb > 70) {
@@ -251,6 +265,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 </div>
                 <ul>
                     <li>หากเกิดแผลตามขอบใบ หลีกเลี่ยงการเดินลุยแปลงนาขณะที่ใบข้าวเปียกเพราะจะทำให้เชื้อแบคทีเรียกระจาย</li>
+                    <li><strong style="color:#e11d48;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ระวังโรคเมล็ดด่างจากเชื้อราที่จะติดมาช่วงฝนตกตอนรวงกำลังบาน' : 'กข15 ต้องระวังโรคใบสีส้มและโรคไหม้คอรวงเมื่อฝนตกชุก'}</li>
                 </ul>
              `;
         } else {
@@ -261,6 +276,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 </div>
                 <ul>
                      <li>หมั่นกำจัดวัชพืชเพื่อให้แปลงนาโปร่ง แสงแดดส่องถึงโคนต้น เป็นการตัดวงจรแมลงศัตรูพืช</li>
+                     <li><strong style="color:#059669;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ข้าวหอมมะลิ 105 จะมีความทนทานต่อโรคกึ่งหนึ่งเมื่อโตเต็มที่' : 'ควรรักษาความสะอาดของแปลงเนื่องจากกข15 ไวต่อวัชพืชแข่งขัน'}</li>
                 </ul>
              `;
         }
@@ -275,6 +291,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li><strong>ระยะสั้น:</strong> หว่านปูนมาร์ล หรือ ปูนขาว ในอัตราที่เหมาะสม (ประมาณ 100-200 กก./ไร่) เพื่อปรับสภาพความเปนกรดในดิน</li>
                     <li><strong>ระยะยาว:</strong> ไถกลบตอซังและหมักฟางข้าว หรือปลูกพืชตระกูลถั่ว (เช่น ปอเทือง) เป็นปุ๋ยสดก่อนทำนา</li>
+                    <li><strong style="color:#8b5cf6;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ขาวดอกมะลิ 105 ทนต่อดินเปรี้ยวได้บ้าง แต่จะให้ผลผลิตดีกว่าในดินลุ่มน้ำ' : 'ปัญหาดินเปรี้ยวจะทำให้ข้าว กข15 แกร็นอย่างรวดเร็ว ควรปรับปรุงดินด่วน'}</li>
                 </ul>
              `;
         } else if (weather.soilPH > 6.5) {
@@ -288,6 +305,7 @@ function generateAIResponse(category, stage, variety, weather) {
                     <li>หลีกเลี่ยงการใช้ปุ๋ยที่มีฤทธิ์เป็นด่างรุนแรง</li>
                     <li>ใช้ปุ๋ยอินทรีย์หรือปุ๋ยหมักเพื่อช่วยปรับโครงสร้างและลดความเปนด่างของดิน</li>
                     <li>เสริมธาตุอาหารทางใบ (เช่น สารละลายสังกะสี) หากพบว่าใบข้าวมีสีซีดผิดปกติ</li>
+                    <li><strong style="color:#8b5cf6;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105 ที่ปลูกในดินเค็มเล็กน้อย/ด่าง มักสร้างความหอมได้ดี แต่หากด่างเกินไปจะขาดธาตุเหล็ก' : 'ข้าว กข15 ไม่ควรปลูกในดินที่มีค่าด่างสูงเกิน 7'}</li>
                 </ul>
              `;
         } else {
@@ -298,6 +316,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 </div>
                 <ul>
                      <li>ดูแลรักษาระดับน้ำตามปกติ และสามารถใส่ปุ๋ยหลัก/ปุ๋ยรองตามกำหนดระยะเจริญเติบโตได้เลย</li>
+                     <li><strong style="color:#059669;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ชอบดินทุ่งกุลาฯ (ดินร่วนปนทราย) จะช่วยเพิ่มความหอมได้เต็มที่' : 'กข15 ตอบสนองต่อปุ๋ยในดินคุณภาพดีได้สูงสุด ควรบำรุงปุ๋ยอินทรีย์เสริม'}</li>
                 </ul>
              `;
         }
@@ -305,7 +324,7 @@ function generateAIResponse(category, stage, variety, weather) {
 
     html += `
         <div class="ai-info" style="margin-top:20px;">
-            <i class="fa-solid fa-robot"></i> วิเคราะห์สดผ่าน AI ร่วมกับข้อมูลพันธุ์${variety === 'white_jasmine105' ? 'หอมมะลิ 105' : 'อื่นๆ'} (${stageName})
+            <i class="fa-solid fa-robot"></i> วิเคราะห์สดผ่าน AI ร่วมกับข้อมูลพันธุ์${varietyName} (${stageName})
         </div>
     </div>`;
 
