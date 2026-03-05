@@ -6,8 +6,11 @@
 ระบบวิเคราะห์คุณภาพและราคาข้าวหอมมะลิของเกษตรกรในประเทศไทย เพื่อช่วยสนับสนุนการตัดสินใจของเกษตรกรได้อย่างเป็นระบบและแม่นยำมากขึ้น
 
 # เครื่องมือที่ใช้
-- https://nodejs.org/
-- CSS
-- HTML
-- Java Script
-- https://render.com/
+* [![Node][[nodejs.org]][Node-url]
+* [![React][React.js]][React-url]
+* [![Vue][Vue.js]][Vue-url]
+* [![Angular][Angular.io]][Angular-url]
+* [![Svelte][Svelte.dev]][Svelte-url]
+* [![Laravel][Laravel.com]][Laravel-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![JQuery][JQuery.com]][JQuery-url]
