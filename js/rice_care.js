@@ -38,9 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get common data
         const stage = document.getElementById('riceStage').value;
         const variety = document.getElementById('riceVariety').value;
+        const soil = document.getElementById('soilType').value;
 
         setTimeout(() => {
-            generateAIResponse(currentCategory, stage, variety, currentWeatherData);
+            generateAIResponse(currentCategory, stage, variety, currentWeatherData, soil);
 
             analyzeBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> วิเคราะห์ข้อมูลสภาพอากาศและรับคำแนะนำ';
             analyzeBtn.disabled = false;
@@ -152,7 +153,7 @@ function resetAIResult() {
 }
 
 // Logic Rules for AI based on Real Weather Data
-function generateAIResponse(category, stage, variety, weather) {
+function generateAIResponse(category, stage, variety, weather, soil = 'clay') {
     const aiContent = document.getElementById('aiResultContent');
     let html = '<div class="ai-result-box">';
 
@@ -281,6 +282,15 @@ function generateAIResponse(category, stage, variety, weather) {
              `;
         }
     } else if (category === 'soil') {
+        let soilAdvice = "";
+        if (soil === 'clay') {
+            soilAdvice = "<li><strong style='color:#78350f;'><i class='fa-solid fa-mountain'></i> คำแนะนำดินเหนียว:</strong> ดินเหนียวอุ้มน้ำและปุ๋ยได้ดี แต่ควรระวังเรื่องการระบายน้ำ หากน้ำขังนานเกินไปจะทำให้รากขาดออกซิเจน</li>";
+        } else if (soil === 'loam') {
+            soilAdvice = "<li><strong style='color:#78350f;'><i class='fa-solid fa-seedling'></i> คำแนะนำดินร่วน:</strong> ดินร่วนระบายน้ำและการถ่ายเทอากาศได้ดี เหมาะกับการเติบโต ควรรักษาคุณภาพดินโดยการเพิ่มปุ๋ยอินทรีย์อย่างสม่ำเสมอ</li>";
+        } else if (soil === 'sand') {
+            soilAdvice = "<li><strong style='color:#78350f;'><i class='fa-solid fa-water'></i> คำแนะนำดินทราย:</strong> ดินทรายไม่อุ้มน้ำและธาตุอาหาร ควรแบ่งใส่ปุ๋ยเคมีทีละน้อยๆ หลายๆ ครั้ง และเน้นการใส่ปุ๋ยหมักปุ๋ยคอกเพื่อเพิ่มการอุ้มน้ำ</li>";
+        }
+
         if (weather.soilPH < 5.5) {
             html += `
                 <div class="ai-warning">
@@ -291,6 +301,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 <ul>
                     <li><strong>ระยะสั้น:</strong> หว่านปูนมาร์ล หรือ ปูนขาว ในอัตราที่เหมาะสม (ประมาณ 100-200 กก./ไร่) เพื่อปรับสภาพความเปนกรดในดิน</li>
                     <li><strong>ระยะยาว:</strong> ไถกลบตอซังและหมักฟางข้าว หรือปลูกพืชตระกูลถั่ว (เช่น ปอเทือง) เป็นปุ๋ยสดก่อนทำนา</li>
+                    ${soilAdvice}
                     <li><strong style="color:#8b5cf6;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ขาวดอกมะลิ 105 ทนต่อดินเปรี้ยวได้บ้าง แต่จะให้ผลผลิตดีกว่าในดินลุ่มน้ำ' : 'ปัญหาดินเปรี้ยวจะทำให้ข้าว กข15 แกร็นอย่างรวดเร็ว ควรปรับปรุงดินด่วน'}</li>
                 </ul>
              `;
@@ -305,6 +316,7 @@ function generateAIResponse(category, stage, variety, weather) {
                     <li>หลีกเลี่ยงการใช้ปุ๋ยที่มีฤทธิ์เป็นด่างรุนแรง</li>
                     <li>ใช้ปุ๋ยอินทรีย์หรือปุ๋ยหมักเพื่อช่วยปรับโครงสร้างและลดความเปนด่างของดิน</li>
                     <li>เสริมธาตุอาหารทางใบ (เช่น สารละลายสังกะสี) หากพบว่าใบข้าวมีสีซีดผิดปกติ</li>
+                    ${soilAdvice}
                     <li><strong style="color:#8b5cf6;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105 ที่ปลูกในดินเค็มเล็กน้อย/ด่าง มักสร้างความหอมได้ดี แต่หากด่างเกินไปจะขาดธาตุเหล็ก' : 'ข้าว กข15 ไม่ควรปลูกในดินที่มีค่าด่างสูงเกิน 7'}</li>
                 </ul>
              `;
@@ -316,6 +328,7 @@ function generateAIResponse(category, stage, variety, weather) {
                 </div>
                 <ul>
                      <li>ดูแลรักษาระดับน้ำตามปกติ และสามารถใส่ปุ๋ยหลัก/ปุ๋ยรองตามกำหนดระยะเจริญเติบโตได้เลย</li>
+                     ${soilAdvice}
                      <li><strong style="color:#059669;">คำแนะนำพันธุ์${varietyName}:</strong> ${variety === 'white_jasmine105' ? 'ชอบดินทุ่งกุลาฯ (ดินร่วนปนทราย) จะช่วยเพิ่มความหอมได้เต็มที่' : 'กข15 ตอบสนองต่อปุ๋ยในดินคุณภาพดีได้สูงสุด ควรบำรุงปุ๋ยอินทรีย์เสริม'}</li>
                 </ul>
              `;

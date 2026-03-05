@@ -123,8 +123,6 @@ function updateFarmData() {
         recommendation += "<strong>ขาวดอกมะลิ 105:</strong> เป็นสายพันธุ์ที่ทนแล้งได้ดี ทนดินเปรี้ยว ข้าวสุกจะอ่อนนุ่มและมีกลิ่นหอมมาก ควรระวังเรื่องน้ำหลากในช่วงใกล้เก็บเกี่ยว<br>";
     } else if (rice === 'khorgor15') {
         recommendation += "<strong>กข15:</strong> อายุเก็บเกี่ยวสั้นกว่าขาวดอกมะลิ 105 ประมาณ 10 วัน เหมาะกับพื้นที่ที่ฝนอาจหมดเร็วหรือน้ำน้อยตอนปลายฤดู<br>";
-    } else {
-        recommendation += "<strong>หอมมะลิทุ่งกุลาฯ:</strong> ต้องการการดูแลพิเศษในพื้นที่ที่มีความแห้งแล้งและดินร่วนปนทรายเพื่อให้ได้ความหอมสูงสุด<br>";
     }
 
     // วิเคราะห์ตามสภาพดิน
@@ -258,6 +256,17 @@ function updateFarmData() {
         // 3. Farm Specific Logic (From above calculations)
         let farmAction = `สำหรับพื้นที่ ${size} ไร่ ที่ปลูก${rice === 'white_jasmine105' ? 'ข้าวขาวดอกมะลิ 105' : (rice === 'khorgor15' ? 'ข้าว กข15' : 'ข้าวขาวดอกมะลิ 105')} ในสภาพ${soil === 'clay' ? 'ดินเหนียว' : (soil === 'sand' ? 'ดินทราย' : 'ดินร่วน')}`;
 
+        let comboAdvice = "";
+        if (rice === 'white_jasmine105') {
+            if (soil === 'clay') comboAdvice = "ข้าวขาวดอกมะลิ 105 สามารถทนสภาพดินเหนียวและดินเปรี้ยวได้ แต่ควรระวังเรื่องการระบายน้ำในช่วงใกล้เก็บเกี่ยว";
+            else if (soil === 'sand') comboAdvice = "ดินทรายที่แห้งแล้งจะช่วยกระตุ้นให้ข้าวหลั่งสารความหอมออกมาได้มากที่สุด แต่ต้องระวังอย่าให้ขาดน้ำช่วงตั้งท้อง";
+            else comboAdvice = "สภาพดินร่วนมีความเหมาะสมอย่างยิ่งกับการเจริญเติบโตของข้าวขาวดอกมะลิ 105 ควรบำรุงปุ๋ยอินทรีย์ตามรอบปกติ";
+        } else if (rice === 'khorgor15') {
+            if (soil === 'clay') comboAdvice = "กข15 มีอายุเก็บเกี่ยวสั้น การปลูกในดินเหนียวที่อุ้มน้ำได้ดีจะช่วยลดความเสี่ยงจากการขาดน้ำในช่วงปลายฤดู";
+            else if (soil === 'sand') comboAdvice = "กข15 ในดินทรายอาจเจอปัญหาดินไม่อุ้มน้ำ แนะนำให้แบ่งใส่ปุ๋ยเคมีทีละน้อยหลายๆ ครั้ง และเสริมปุ๋ยคอก";
+            else comboAdvice = "กข15 ตอบสนองต่อดินร่วนที่อุดมสมบูรณ์ได้ดีมาก จะช่วยให้ได้ผลผลิตสูงและเก็บเกี่ยวได้ตามกำหนดเวลา";
+        }
+
         // Assemble Unified Report
         let unifiedHTML = `
             <p>สวัสดีครับเกษตรกร! จากข้อมูลฟาร์ม สภาพอากาศ และแนวโน้มราคาในปัจจุบัน นี่คือบทสรุปคำแนะนำที่ AI ประมวลผลให้คุณโดยเฉพาะ:</p>
@@ -280,6 +289,9 @@ function updateFarmData() {
             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                 <h4 style="color: #059669; margin-bottom: 8px; border-bottom: 1px solid #a7f3d0; padding-bottom: 5px;"><i class="fa-solid fa-seedling"></i> 3. การจัดการที่ดินของคุณ</h4>
                 <p style="font-size: 0.95rem; margin-bottom: 5px;">${farmAction}</p>
+                <div style="background-color: #f0fdf4; border-left: 3px solid #059669; padding: 10px; font-size: 0.9rem; margin-bottom: 10px; color: #064e3b; border-radius: 4px;">
+                    <strong><i class="fa-solid fa-lightbulb"></i> คำแนะนำเฉพาะพื้นที่:</strong> ${comboAdvice}
+                </div>
                 <ul style="font-size: 0.9rem; padding-left: 20px; margin-bottom: 0; line-height: 1.5;">
                     <li><strong>เป้าหมายผลผลิต:</strong> ${totalExpectedYield.toLocaleString()} กก. (เป้า ${targetYieldPerRai} กก./ไร่)</li>
                     <li><strong>อัตราเมล็ดพันธุ์ที่แนะนำ:</strong> ${seedRate} กก./ไร่ (รวม ${seedAmount.toLocaleString()} กก.)</li>
