@@ -334,6 +334,38 @@ function generateAIResponse(category, stage, variety, weather, soil = 'clay') {
              `;
         }
     }
+    // ลอจิกให้คำแนะนำตามระยะการเจริญเติบโตเฉพาะเจาะจง
+    let stageAdviceHTML = "";
+    if (stage === 'seedling') {
+        if (category === 'water') stageAdviceHTML = "รักษาระดับน้ำให้พอดีดินแฉะๆ หรือน้ำตื้นๆ ไม่ควรท่วมยอดกล้าเพื่อป้องกันกล้าเน่าพับ";
+        else if (category === 'temperature') stageAdviceHTML = "ต้นกล้ายังอ่อนแอต่อสภาพอากาศจัด ควรระวังความร้อนสะสมในน้ำที่อาจลวกต้นกล้าและทำให้เฉาตายได้";
+        else if (category === 'disease') stageAdviceHTML = "ระวังโรคกล้าเน่าและเพลี้ยไฟทำลายใบอ่อน หมั่นตรวจสอบแปลงอย่างสม่ำเสมอในระยะแรกนี้";
+        else if (category === 'soil') stageAdviceHTML = "รากยังสั้นและต้องการธาตุอาหารที่ย่อยสลายง่าย ดินควรร่วนซุยเพื่อให้รากเดินและจับยึดดินได้ดี";
+    } else if (stage === 'tillering') {
+        if (category === 'water') stageAdviceHTML = "แนะนำให้ทำนาแบบเปียกสลับแห้ง (AWD) เพื่อช่วยกระตุ้นการแตกรากใหม่และลดก๊าซมีเทนในแปลงนา";
+        else if (category === 'temperature') stageAdviceHTML = "ช่วงนี้ข้าวทนทานต่อสภาพอากาศได้ระดับหนึ่ง แต่หากมีอุณหภูมิความร้อนสูงเป็นเวลานานอาจทำให้การแตกกอชะงัก";
+        else if (category === 'disease') stageAdviceHTML = "ทรงพุ่มเริ่มหนาแน่น อากาศไม่ค่อยถ่ายเท ระวังการระบาดของหนอนห่อใบข้าวและโรคใบจุดสีน้ำตาล";
+        else if (category === 'soil') stageAdviceHTML = "พืชต้องการไนโตรเจนสูงสำหรับการแตกกอ จึงควรเสริมปุ๋ยบำรุงต้นตามค่าวิเคราะห์ดินให้เพียงพอ";
+    } else if (stage === 'booting') {
+        if (category === 'water') stageAdviceHTML = "ระยะนี้ข้าวขยายเซลล์รวดเร็ว ขาดน้ำไม่ได้เด็ดขาด ต้องรักษาระดับน้ำให้สม่ำเสมอจนกว่าจะออกรวงสุด";
+        else if (category === 'temperature') stageAdviceHTML = "อุณหภูมิที่สูงหรือต่ำเกินไปจะกระทบต่อการผสมเกสร ทำให้รวงข้าวไม่สมบูรณ์และได้ข้าวเมล็ดลีบเพิ่มขึ้น";
+        else if (category === 'disease') stageAdviceHTML = "หมั่นเฝ้าระวังโรคไหม้คอรวงและพลางสังเกตแมลงสิง ซึ่งจะเจาะและดูดน้ำเลี้ยงทำลายคุณภาพผลผลิตโดยตรง";
+        else if (category === 'soil') stageAdviceHTML = "ระยะตั้งท้องนี้ต้องการแร่ธาตุหลักอย่างฟอสฟอรัสและโพแทสเซียมเพื่อช่วยบำรุงรวงให้สมบูรณ์";
+    } else if (stage === 'flowering') {
+        if (category === 'water') stageAdviceHTML = "เมื่อถึงระยะน้ำนมและใกล้สุก ควรทยอยระบายน้ำออกเพื่อให้ข้าวสุกพร้อมกันและดินแห้งพอดีกับช่วงที่รถเกี่ยวลงนา";
+        else if (category === 'temperature') stageAdviceHTML = "แดดร้อนจัดอาจทำให้ข้าวสุกแห้งเร็วเกินไป ควรประเมินระยะเวลาเก็บเกี่ยวให้แม่นยำเพื่อป้องกันข้าวกรอบหักง่าย";
+        else if (category === 'disease') stageAdviceHTML = "ระวังโรคเมล็ดด่างจากเชื้อราที่มากับความชื้นและน้ำค้าง ซึ่งจะทำให้ข้าวสีขุ่น ไม่ได้ราคา";
+        else if (category === 'soil') stageAdviceHTML = "ต้นข้าวเริ่มหยุดการดูดซึมอาหารทางราก การใส่ปุ๋ยทางดินในระยะนี้อาจไม่เกิดประโยชน์เท่าที่ควร ควรปล่อยตามธรรมชาติ";
+    }
+
+    if (stageAdviceHTML) {
+        html += `
+            <div class="ai-stage-advice" style="margin-top: 15px; padding: 12px; background: #e0f2fe; border-left: 4px solid #0284c7; border-radius: 6px;">
+                <h4 style="margin: 0 0 8px 0; color: #0369a1; font-size: 1rem;"><i class="fa-solid fa-chart-line"></i> คำแนะนำเฉพาะ : ${stageName}</h4>
+                <p style="margin: 0; font-size: 0.95rem; color: #334155; line-height: 1.5;">${stageAdviceHTML}</p>
+            </div>
+        `;
+    }
 
     html += `
         <div class="ai-info" style="margin-top:20px;">

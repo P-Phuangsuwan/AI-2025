@@ -104,7 +104,9 @@
         </section>
 
         <!-- Farm Settings -->
-        <section id="farm" class="setting-panel">
+        <section id="farm" class="setting-panel" style="cursor: pointer; transition: transform 0.2s;"
+            onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'"
+            onclick="if(!event.target.closest('input, select, button, label')) window.location.href='frontend/index/rice_care.html'">
             <div class="panel-header">
                 <h2>ข้อมูลฟาร์ม</h2>
                 <p>ตั้งค่ารายละเอียดเกี่ยวกับพื้นที่เพาะปลูกของคุณเพื่อความแม่นยำของ AI</p>
@@ -150,18 +152,22 @@
         </section>
         <!-- Unified AI Report Section -->
         <section class="top-section" style="margin-top: 30px;">
-            <div class="glass-card"
-                style="background: linear-gradient(135deg, rgba(230, 247, 255, 0.8) 0%, rgba(204, 235, 255, 0.9) 100%); border-left: 6px solid #1890ff; padding: 25px;">
-                <div class="card-header"
-                    style="border-bottom: 2px solid rgba(24, 144, 255, 0.2); padding-bottom: 15px; margin-bottom: 20px;">
-                    <h3 style="color: #0050b3; font-size: 1.4rem;"><i class="fa-solid fa-robot"></i> Smart Rice AI:
-                        วิเคราะห์ภาพรวมฟาร์มของคุณ</h3>
+            <a href="frontend/index/rice_care.html"
+                style="text-decoration: none; color: inherit; display: block; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
+                <div class="glass-card"
+                    style="background: linear-gradient(135deg, rgba(230, 247, 255, 0.8) 0%, rgba(204, 235, 255, 0.9) 100%); border-left: 6px solid #1890ff; padding: 25px;">
+                    <div class="card-header"
+                        style="border-bottom: 2px solid rgba(24, 144, 255, 0.2); padding-bottom: 15px; margin-bottom: 20px;">
+                        <h3 style="color: #0050b3; font-size: 1.4rem;"><i class="fa-solid fa-robot"></i> Smart Rice AI:
+                            วิเคราะห์ภาพรวมฟาร์มของคุณ</h3>
+                    </div>
+                    <div id="unifiedAiReportContent" style="color: #003a8c; font-size: 1.05rem; line-height: 1.6;">
+                        <p style="text-align: center; color: #597ef7;"><i class="fa-solid fa-spinner fa-spin"></i>
+                            โปรดระบุข้อมูลฟาร์มของคุณและกด "อัปเดตข้อมูลไร่" เพื่อให้ AI วิเคราะห์ภาพรวมทั้งหมด</p>
+                    </div>
                 </div>
-                <div id="unifiedAiReportContent" style="color: #003a8c; font-size: 1.05rem; line-height: 1.6;">
-                    <p style="text-align: center; color: #597ef7;"><i class="fa-solid fa-spinner fa-spin"></i>
-                        โปรดระบุข้อมูลฟาร์มของคุณและกด "อัปเดตข้อมูลไร่" เพื่อให้ AI วิเคราะห์ภาพรวมทั้งหมด</p>
-                </div>
-            </div>
+            </a>
         </section>
     </main>
 
