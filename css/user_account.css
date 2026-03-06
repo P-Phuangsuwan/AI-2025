@@ -1,0 +1,267 @@
+/* User Account Specific Styles */
+
+/* Agricultural Background for Account Page */
+body.account-page {
+    background: linear-gradient(rgba(241, 248, 243, 0.85), rgba(224, 236, 228, 0.95)),
+        url('https://images.unsplash.com/photo-1590682680695-43b964a3ae17?auto=format&fit=crop&q=80&w=1920&h=1080') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.account-container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 40px auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    flex: 1;
+}
+
+/* Gray Box: Details area from sketch */
+.account-gray-box {
+    background-color: #bbbbbb;
+    /* Gray background for the bounding box */
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    gap: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Optional stylistic gloss on the gray box */
+.account-gray-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, #b5e85c, #2ecc71);
+}
+
+/* Left Column: Image and Edit Button */
+.account-left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 250px;
+    flex-shrink: 0;
+}
+
+/* Off-white Box: Profile Image */
+.account-profile-pic {
+    background-color: #f5f7f5;
+    /* Off-white/light gray with slight green tint */
+    background: linear-gradient(135deg, #ffffff, #e8ece9);
+    width: 100%;
+    aspect-ratio: 1;
+    /* Square, matches sketch */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+    color: rgba(30, 80, 40, 0.4);
+    /* Make the icon slightly more visible */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02), 0 4px 15px rgba(0, 0, 0, 0.08);
+    /* Softer shadows */
+    /* Placeholder setup to insert actual image later */
+    /* background-image: url('...'); background-size: cover; background-position: center; */
+}
+
+/* Premium Earthy Tone: Edit Account Button */
+.account-edit-btn {
+    background-color: #F4A261;
+    /* Warm gold/orange from sketch menu */
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-edit-btn:hover {
+    background-color: #E76F51;
+    /* Deeper burnt orange/red */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 111, 81, 0.5);
+}
+
+.account-edit-btn:active {
+    transform: translateY(1px);
+}
+
+/* Right Column: Details Content */
+.account-right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.account-right-panel h3 {
+    margin-bottom: 20px;
+    color: #2D3A31;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 15px;
+}
+
+.account-detail-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 18px 25px;
+    border-radius: 8px;
+    border-left: 5px solid #2ecc71;
+    /* Green accent */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.account-detail-item:hover {
+    transform: translateX(5px);
+}
+
+.account-detail-item label {
+    font-size: 0.95rem;
+    color: #5C7262;
+    font-weight: 500;
+}
+
+.account-detail-item .detail-value {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1A3626;
+}
+
+/* Responsive constraints */
+@media (max-width: 850px) {
+    .account-gray-box {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+
+    .account-left-panel {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .account-right-panel {
+        width: 100%;
+    }
+}
+
+/* Edit Account Specific Styles */
+.account-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.edit-input-group label {
+    font-size: 0.95rem;
+    color: #5C7262;
+    font-weight: 500;
+}
+
+.edit-input {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #1A3626;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+textarea.edit-input {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Green Image Upload Box */
+.image-upload-box {
+    background-color: #f5f7f5;
+    /* Vibrant lime-greenish base */
+    background: linear-gradient(135deg, #ffffff, #e8ece9);
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: rgba(30, 80, 40, 0.4);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02), 0 4px 15px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.image-upload-box:hover {
+    transform: scale(1.02);
+}
+
+.image-upload-box i {
+    font-size: 3rem;
+}
+
+.image-upload-box span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Pink Submit Button */
+.btn-pink-submit {
+    background-color: #F4A261;
+    /* Vivid Pink from sketch */
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-pink-submit:hover {
+    background-color: #F4A261;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 111, 81, 0.5);
+}
