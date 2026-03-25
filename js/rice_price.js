@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function updateRiceData(variety) {
+    async function updateRiceData(variety) {
         // 1. Generate Realistic "Real-time" Data aligned with the current Date
         const today = new Date();
         const currentYear = today.getFullYear();
@@ -23,17 +23,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let basePrice = 14500;
         let varietyNameTh = "ข้าวขาวดอกมะลิ 105";
+        let apiProductName = "ข้าวเปลือกเจ้าหอมมะลิ 105";
 
         switch (variety) {
             case 'khorgor15':
                 basePrice = 13800; // slightly lower
                 varietyNameTh = "ข้าว กข15";
+                apiProductName = "ข้าวเปลือกเจ้า กข15";
                 break;
             case 'white_jasmine105':
             default:
                 basePrice = 14500;
                 varietyNameTh = "ข้าวขาวดอกมะลิ 105";
+                apiProductName = "ข้าวเปลือกเจ้าหอมมะลิ 105";
                 break;
+        }
+
+        // Fetch API Data
+        let apiData = [];
+        try {
+            const response = await fetch(`https://agriapi.nabc.go.th/api/daily-prices/product?product_name=${encodeURIComponent(apiProductName)}&limit=2000`);
+            const json = await response.json();
+            if (json.success && json.data) {
+                apiData = json.data;
+            }
+        } catch (error) {
+            console.error("Failed to fetch rice prices API:", error);
+        }
+
+        const thYear = currentYear + 543;
+        const monthlyAverages = new Array(12).fill(null);
+        let mostRecentPrice = null;
+        let yesterdayPrice = null;
+
+        if (apiData.length > 0) {
+            const uniqueDates = [...new Set(apiData.map(d => d.data_date))].sort((a, b) => b.localeCompare(a));
+            
+            if (uniqueDates.length > 0) {
+                const latestPrices = apiData.filter(d => d.data_date === uniqueDates[0]).map(d => d.day_price);
+                mostRecentPrice = Math.round(latestPrices.reduce((a, b) => a + b, 0) / latestPrices.length);
+            }
+            if (uniqueDates.length > 1) {
+                const yPrices = apiData.filter(d => d.data_date === uniqueDates[1]).map(d => d.day_price);
+                yesterdayPrice = Math.round(yPrices.reduce((a, b) => a + b, 0) / yPrices.length);
+            }
+
+            const currentYearData = apiData.filter(d => parseInt(d.year_th) === thYear);
+            for (let m = 0; m < 12; m++) {
+                const monthData = currentYearData.filter(d => parseInt(d.month) === (m + 1));
+                if (monthData.length > 0) {
+                    const prices = monthData.map(d => d.day_price);
+                    monthlyAverages[m] = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+                }
+            }
         }
 
         // Function to generate a deterministic random number based on year, month and day
@@ -45,29 +87,39 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generate price for each month of the current year (12 months)
         const monthsName = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
         const priceData = [];
+        let trendBase = mostRecentPrice || basePrice;
 
         for (let i = 0; i < 12; i++) {
-            // Seasonal factors: price drops near harvest (Nov-Dec), rises in dry season (Mar-May)
-            let seasonalOffset = pseudoRandom(currentYear * 12 + i + basePrice) * 600 - 300;
-            if (i >= 10) seasonalOffset -= 800; // Harvest season drop
-            else if (i >= 2 && i <= 4) seasonalOffset += 500; // Dry season increase
+            if (monthlyAverages[i] !== null) {
+                priceData.push(monthlyAverages[i]);
+                trendBase = monthlyAverages[i];
+            } else {
+                // Seasonal factors: price drops near harvest (Nov-Dec), rises in dry season (Mar-May)
+                let seasonalOffset = pseudoRandom(currentYear * 12 + i + trendBase) * 600 - 300;
+                if (i >= 10) seasonalOffset -= 800; // Harvest season drop
+                else if (i >= 2 && i <= 4) seasonalOffset += 500; // Dry season increase
 
-            // Random walk
-            let change = seasonalOffset + (pseudoRandom(currentYear + i * 7 + basePrice) * 400 - 200);
-            let currentMonthPrice = Math.round((basePrice + change) / 100) * 100;
-            priceData.push(currentMonthPrice);
+                // Random walk
+                let change = seasonalOffset + (pseudoRandom(currentYear + i * 7 + trendBase) * 400 - 200);
+                let currentMonthPrice = Math.round((trendBase + change) / 100) * 100;
+                priceData.push(currentMonthPrice);
+            }
         }
 
         // Derive Today's Price
-        // Slightly tweak the current month's price to simulate daily fluctuation
-        const dailyFluctuation = Math.round((pseudoRandom(today.getDate() * currentMonth + basePrice) * 400 - 200) / 10) * 10;
-        const todayPrice = priceData[currentMonth] + dailyFluctuation;
+        let todayPrice = mostRecentPrice;
+        let yPrice = yesterdayPrice;
 
-        // Yesterday's price for the trend
-        const yesterdayFluctuation = Math.round((pseudoRandom((today.getDate() - 1) * currentMonth + basePrice) * 400 - 200) / 10) * 10;
-        const yesterdayPrice = priceData[currentMonth] + yesterdayFluctuation;
+        if (!todayPrice) {
+            const dailyFluctuation = Math.round((pseudoRandom(today.getDate() * currentMonth + basePrice) * 400 - 200) / 10) * 10;
+            todayPrice = priceData[currentMonth] + dailyFluctuation;
+        }
+        if (!yPrice) {
+            const yesterdayFluctuation = Math.round((pseudoRandom((today.getDate() - 1) * currentMonth + basePrice) * 400 - 200) / 10) * 10;
+            yPrice = priceData[currentMonth] + yesterdayFluctuation;
+        }
 
-        const priceDiff = todayPrice - yesterdayPrice;
+        const priceDiff = todayPrice - yPrice;
 
         // 2. Update UI Elements
         // Updating Today's Price Section
