@@ -34,6 +34,7 @@
 ## API
 * Open-Meteo (https://open-meteo.com/)
 * Google Ai Studio (https://aistudio.google.com/)
+* ศูนย์ข้อมูลเกษตรแห่งชาติ (https://agriapi.nabc.go.th/)
 
 # การติดตั้งและการใช้งาน (Setup & Installation)
 
